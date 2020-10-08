@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Main from "../main/main";
 import SignIn from "../sign-in/sign-in";
@@ -7,43 +6,43 @@ import MyList from "../my-list/my-list";
 import MoviePage from "../movie-page/movie-page";
 import AddReview from "../add-review/add-review";
 import Player from "../player/player";
+import FilmTypes from "../../types/types";
 
 const App = (props) => {
-  const {film} = props;
+  const {films, genres, filmHeader, filmFull} = props;
 
   return (
 
     <BrowserRouter>
       <Switch>
-        <Route exact path="/">
-          <Main film={film} />
-        </Route>
+        <Route exact path="/" render={({history}) => (
+          <Main films={films} genres={genres} filmHeader={filmHeader} onPlayClick={(id) => history.push(`/player/` + id)}/>
+        )} />
         <Route exact path="/login">
           <SignIn />
         </Route>
         <Route exact path="/mylist">
-          <MyList />
+          <MyList films={films} />
         </Route>
-        <Route exact path="/films/:id">
-          <MoviePage film={film} />
-        </Route>
-        <Route exact path="/films/:id/review">
-          <AddReview film={film} />
-        </Route>
-        <Route exact path="/player/:id">
-          <Player />
-        </Route>
+        <Route exact path="/films/:id" render={({history}) => (
+          <MoviePage films={films} film={filmFull} onPlayClick={(id) => history.push(`/player/` + id)}/>
+        )} />
+        <Route exact path="/films/:id/review" render={({history}) => (
+          <AddReview film={filmHeader} onAvatarClick={() => history.push(`/mylist`)} />
+        )} />
+        <Route exact path="/player/:id" render={({history}) => (
+          <Player onExitClick={() => history.push(`/`)} />
+        )} />
       </Switch>
     </BrowserRouter>
   );
 };
 
 App.propTypes = {
-  film: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    year: PropTypes.instanceOf(Date).isRequired
-  }).isRequired
+  films: FilmTypes.list.isRequired,
+  genres: FilmTypes.genres.isRequired,
+  filmHeader: FilmTypes.header.isRequired,
+  filmFull: FilmTypes.page.isRequired,
 };
 
 export default App;
