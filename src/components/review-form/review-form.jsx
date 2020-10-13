@@ -20,7 +20,6 @@ export default class ReviewForm extends PureComponent {
   }
 
   render() {
-    const currentRating = this.state.rating;
 
     return (
       <form action="#" className="add-review__form">
@@ -30,7 +29,7 @@ export default class ReviewForm extends PureComponent {
             {RATINGS.map((rating, i) => (
               <React.Fragment key={i + rating}>
                 <input className="rating__input" id={`star-${rating}`} type="radio" name="rating" value={rating}
-                  checked={currentRating === rating} onChange={this._handleFieldChange}/>
+                  checked={this.state.rating === rating} onChange={this._handleFieldChange}/>
                 <label className="rating__label" htmlFor={`star-${rating}`}>Rating {rating}</label>
               </React.Fragment>
             ))}
@@ -39,7 +38,7 @@ export default class ReviewForm extends PureComponent {
         </div>
 
         <div className="add-review__text">
-          <textarea className="add-review__textarea" name="text" id="review-text"
+          <textarea className="add-review__textarea" name="text" id="review-text" value={this.state.text}
             placeholder="Review text" onChange={this._handleFieldChange} />
           <div className="add-review__submit">
             <button className="add-review__btn" type="submit">Post</button>
