@@ -8,7 +8,7 @@ export default class MovieList extends PureComponent {
     super(props);
 
     this.state = {
-      activeCard: null,
+      activeCard: -1,
     };
 
     this._handleCardOver = this._handleCardOver.bind(this);
@@ -20,16 +20,19 @@ export default class MovieList extends PureComponent {
   }
 
   _handleCardOut() {
-    this.setState({activeCard: null});
+    this.setState({activeCard: -1});
   }
 
   render() {
     const {films} = this.props;
+    const {activeCard} = this.state;
 
     return (
       <div className="catalog__movies-list">
         {films.map((film, i) => (
-          <MovieCard key ={`${i}-${film.id}`} film={film} onMovieCardOver ={this._handleCardOver} onMovieCardOut={this._handleCardOut} />
+          <MovieCard key ={`${i}-${film.id}`} film={film}
+            onMovieCardOver ={this._handleCardOver} onMovieCardOut={this._handleCardOut}
+            isVideoPlaying ={activeCard === film.id} />
         ))}
       </div>
     );
