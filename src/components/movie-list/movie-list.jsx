@@ -7,6 +7,8 @@ export default class MovieList extends PureComponent {
   constructor(props) {
     super(props);
 
+    this.timeout = null;
+
     this.state = {
       activeCard: -1,
     };
@@ -16,10 +18,11 @@ export default class MovieList extends PureComponent {
   }
 
   _handleCardOver(id) {
-    this.setState({activeCard: id});
+    this.timeout = setTimeout(() => this.setState({activeCard: id}), 1000);
   }
 
   _handleCardOut() {
+    clearTimeout(this.timeout);
     this.setState({activeCard: -1});
   }
 
