@@ -1,3 +1,5 @@
+const RELATED_FILMS_COUNT = 4;
+
 const Level = {
   BAD: `Bad`,
   NORMAL: `Normal`,
@@ -24,7 +26,7 @@ const LevelRules = {
   [AWESOME]: (score) => score === TOP
 };
 
-const getLevel = (score) => {
+export const getLevel = (score) => {
 
   if (LevelRules[BAD](score)) {
     return BAD;
@@ -41,4 +43,18 @@ const getLevel = (score) => {
   }
 };
 
-export default getLevel;
+export const getRelatedFilms = (films, currentFilm) => {
+  const similarGenreFilms = films.filter((film) => film.genre === currentFilm.genre);
+
+  if (similarGenreFilms.length === 0) {
+    return films.slice(0, RELATED_FILMS_COUNT);
+  }
+
+  if (similarGenreFilms.length > RELATED_FILMS_COUNT) {
+    return similarGenreFilms.slice(0, RELATED_FILMS_COUNT);
+  }
+
+  const otherFilms = (films.filter((film) => film.genre !== currentFilm.genre)).slice(0, RELATED_FILMS_COUNT - similarGenreFilms.length);
+
+  return similarGenreFilms.concat(otherFilms);
+};

@@ -1,15 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
+import Tabs from "../tabs/tabs";
+import MovieOverview from "../movie-overview/movie-overview";
+import MovieDetails from "../movie-details/movie-details";
+import MovieReviews from "../movie-reviews/movie-reviews";
 import MovieList from "../movie-list/movie-list";
 import FilmTypes from "../../types/types";
-import getLevel from "../../utils";
+import {Tab} from "../../const";
+import {getRelatedFilms} from "../../utils";
 
-const RELATED_FILMS_COUNT = 4;
+const {OVERVIEW, DETAILS, REVIEWS} = Tab;
 
 const MoviePage = (props) => {
   const {films, film, onPlayClick} = props;
-  const relatedFilms = films.slice(0, RELATED_FILMS_COUNT);
+  const relatedFilms = getRelatedFilms(films, film);
 
   return <React.Fragment>
     <section className="movie-card movie-card--full">
@@ -68,35 +73,21 @@ const MoviePage = (props) => {
           </div>
 
           <div className="movie-card__desc">
-            <nav className="movie-nav movie-card__nav">
-              <ul className="movie-nav__list">
-                <li className="movie-nav__item movie-nav__item--active">
-                  <a href="#" className="movie-nav__link">Overview</a>
-                </li>
-                <li className="movie-nav__item">
-                  <a href="#" className="movie-nav__link">Details</a>
-                </li>
-                <li className="movie-nav__item">
-                  <a href="#" className="movie-nav__link">Reviews</a>
-                </li>
-              </ul>
-            </nav>
+            <Tabs renderTab={(activeTab) => {
 
-            <div className="movie-rating">
-              <div className="movie-rating__score">{film.overview.score}</div>
-              <p className="movie-rating__meta">
-                <span className="movie-rating__level">{getLevel(parseInt(film.overview.score, 10))}</span>
-                <span className="movie-rating__count">{film.overview.ratings} ratings</span>
-              </p>
-            </div>
+              switch (activeTab) {
+                case OVERVIEW:
+                  return <MovieOverview film={film}/>;
 
-            <div className="movie-card__text">
+                case DETAILS:
+                  return <MovieDetails film={film}/>;
 
-              {film.overview.description.split(/\n/).map((item, i) => <p key={i + 1}>{item}</p>)}
-              <p className="movie-card__director"><strong>Director: {film.overview.director}</strong></p>
-              <p className="movie-card__starring"><strong>Starring: {film.overview.starring}</strong></p>
+                case REVIEWS:
+                  return <MovieReviews film={film}/>;
+              }
 
-            </div>
+              return null;
+            }} />
           </div>
         </div>
       </div>
