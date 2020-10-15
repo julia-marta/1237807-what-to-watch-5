@@ -6,14 +6,22 @@ const Level = {
   AWESOME: `Awesome`
 };
 
+const LevelStep = {
+  LOW: 3,
+  MIDDLE: 5,
+  HIGH: 8,
+  TOP: 10
+};
+
 const {BAD, NORMAL, GOOD, VERY_GOOD, AWESOME} = Level;
+const {LOW, MIDDLE, HIGH, TOP} = LevelStep;
 
 const LevelRules = {
-  [BAD]: (score) => score < 3,
-  [NORMAL]: (score) => score >= 3 && score < 5,
-  [GOOD]: (score) => score >= 5 && score < 8,
-  [VERY_GOOD]: (score) => score >= 8 && score < 10,
-  [AWESOME]: (score) => score === 10
+  [BAD]: (score) => score < LOW,
+  [NORMAL]: (score) => score >= LOW && score < MIDDLE,
+  [GOOD]: (score) => score >= MIDDLE && score < HIGH,
+  [VERY_GOOD]: (score) => score >= HIGH && score < TOP,
+  [AWESOME]: (score) => score === TOP
 };
 
 const getLevel = (score) => {
@@ -26,8 +34,10 @@ const getLevel = (score) => {
     return GOOD;
   } else if (LevelRules[VERY_GOOD](score)) {
     return VERY_GOOD;
-  } else {
+  } else if (LevelRules[AWESOME](score)) {
     return AWESOME;
+  } else {
+    return ``;
   }
 };
 

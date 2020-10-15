@@ -9,7 +9,7 @@ const RELATED_FILMS_COUNT = 4;
 
 const MoviePage = (props) => {
   const {films, film, onPlayClick} = props;
-  const RELATED_FILMS = films.slice(0, RELATED_FILMS_COUNT);
+  const relatedFilms = films.slice(0, RELATED_FILMS_COUNT);
 
   return <React.Fragment>
     <section className="movie-card movie-card--full">
@@ -106,7 +106,7 @@ const MoviePage = (props) => {
       <section className="catalog catalog--like-this">
         <h2 className="catalog__title">More like this</h2>
 
-        <MovieList films={RELATED_FILMS} />
+        <MovieList films={relatedFilms} />
       </section>
 
       <footer className="page-footer">

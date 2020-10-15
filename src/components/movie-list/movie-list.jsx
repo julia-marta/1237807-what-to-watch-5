@@ -2,34 +2,46 @@ import React, {PureComponent} from "react";
 import MovieCard from "../movie-card/movie-card";
 import FilmTypes from "../../types/types";
 
+const TRAILER_START_TIME = 1000;
+
 
 export default class MovieList extends PureComponent {
   constructor(props) {
     super(props);
 
+    this.timeout = null;
+
     this.state = {
-      activeCard: null,
+      activeCard: -1,
     };
 
     this._handleCardOver = this._handleCardOver.bind(this);
     this._handleCardOut = this._handleCardOut.bind(this);
   }
 
+  componentWillUnmount() {
+    clearTimeout(this.timeout);
+  }
+
   _handleCardOver(id) {
-    this.setState({activeCard: id});
+    this.timeout = setTimeout(() => this.setState({activeCard: id}), TRAILER_START_TIME);
   }
 
   _handleCardOut() {
-    this.setState({activeCard: null});
+    clearTimeout(this.timeout);
+    this.setState({activeCard: -1});
   }
 
   render() {
     const {films} = this.props;
+    const {activeCard} = this.state;
 
     return (
       <div className="catalog__movies-list">
         {films.map((film, i) => (
-          <MovieCard key ={`${i}-${film.id}`} film={film} onMovieCardOver ={this._handleCardOver} onMovieCardOut={this._handleCardOut} />
+          <MovieCard key ={`${i}-${film.id}`} film={film}
+            onMovieCardOver ={this._handleCardOver} onMovieCardOut={this._handleCardOut}
+            isVideoPlaying ={activeCard === film.id} />
         ))}
       </div>
     );

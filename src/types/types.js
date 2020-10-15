@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const {arrayOf, array, shape, number, string, instanceOf} = PropTypes;
+const {arrayOf, shape, number, string, instanceOf} = PropTypes;
 
 const FilmCardType = shape({
   id: number.isRequired,
@@ -47,7 +47,7 @@ const FilmTypes = {
   header: FilmHeaderType,
   page: FilmPageType,
   list: arrayOf(FilmCardType),
-  genres: array
+  genres: arrayOf(string),
 };
 
 export default FilmTypes;
