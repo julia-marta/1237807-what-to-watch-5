@@ -2,6 +2,8 @@ import React, {PureComponent} from "react";
 import MovieCard from "../movie-card/movie-card";
 import FilmTypes from "../../types/types";
 
+const TRAILER_START_TIME = 1000;
+
 
 export default class MovieList extends PureComponent {
   constructor(props) {
@@ -17,8 +19,12 @@ export default class MovieList extends PureComponent {
     this._handleCardOut = this._handleCardOut.bind(this);
   }
 
+  componentWillUnmount() {
+    clearTimeout(this.timeout);
+  }
+
   _handleCardOver(id) {
-    this.timeout = setTimeout(() => this.setState({activeCard: id}), 1000);
+    this.timeout = setTimeout(() => this.setState({activeCard: id}), TRAILER_START_TIME);
   }
 
   _handleCardOut() {
