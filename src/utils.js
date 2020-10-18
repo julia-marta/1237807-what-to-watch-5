@@ -1,3 +1,5 @@
+import {ALL_GENRES} from "./const";
+
 const RELATED_FILMS_COUNT = 4;
 
 const Level = {
@@ -57,4 +59,21 @@ export const getRelatedFilms = (films, currentFilm) => {
   const otherFilms = (films.filter((film) => film.genre !== currentFilm.genre)).slice(0, RELATED_FILMS_COUNT - similarGenreFilms.length);
 
   return similarGenreFilms.concat(otherFilms);
+};
+
+export const extend = (a, b) => {
+  return Object.assign({}, a, b);
+};
+
+export const getGenresList = (films) => {
+  const uniqueGenres = Array.from(new Set(films.map((film) => film.genre)));
+  return [ALL_GENRES, ...uniqueGenres];
+};
+
+export const getFilmsByGenre = (films, genre) => {
+  if (genre === ALL_GENRES) {
+    return films;
+  }
+
+  return films.filter((film) => film.genre === genre);
 };

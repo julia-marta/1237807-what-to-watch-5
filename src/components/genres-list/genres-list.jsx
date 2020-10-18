@@ -1,41 +1,33 @@
-import React, {PureComponent} from "react";
-import FilmTypes from "../../types/types";
+import React from "react";
+import PropTypes from "prop-types";
 
-export default class GenresList extends PureComponent {
-  constructor(props) {
-    super(props);
+const GenresList = (props) => {
 
-    this.state = {
-      activeGenre: `All genres`,
-    };
+  const {genres, activeGenre, onGenreClick, filterFilms} = props;
 
-    this._handleGenreItemClick = this._handleGenreItemClick.bind(this);
-  }
+  return (
+    <ul className="catalog__genres-list" onClick={(evt) => {
+      if (evt.target.tagName === `A`) {
+        onGenreClick(evt.target.textContent);
+        filterFilms();
+      }
+    }}>
 
-  _handleGenreItemClick(evt) {
-    if (evt.target.tagName === `A`) {
-      this.setState({activeGenre: evt.target.textContent});
-    }
-  }
+      {genres.map((genre, i) => (
+        <li key ={i + 1} className={`catalog__genres-item ${genre === activeGenre ? `catalog__genres-item--active` : ``}`}>
+          <a href="#" className="catalog__genres-link">{genre}</a>
+        </li>
+      ))}
 
-  render() {
-    const {genres} = this.props;
-    const {activeGenre} = this.state;
-
-    return (
-      <ul className="catalog__genres-list" onClick={this._handleGenreItemClick}>
-
-        {genres.map((genre, i) => (
-          <li key ={i + 1} className={`catalog__genres-item ${genre === activeGenre ? `catalog__genres-item--active` : ``}`}>
-            <a href="#" className="catalog__genres-link">{genre}</a>
-          </li>
-        ))}
-
-      </ul>
-    );
-  }
-}
+    </ul>
+  );
+};
 
 GenresList.propTypes = {
-  genres: FilmTypes.genres.isRequired,
+  genres: PropTypes.arrayOf(PropTypes.string).isRequired,
+  activeGenre: PropTypes.string.isRequired,
+  onGenreClick: PropTypes.func.isRequired,
+  filterFilms: PropTypes.func.isRequired,
 };
+
+export default GenresList;

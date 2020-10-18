@@ -1,12 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+import {ActionCreator} from "../../store/actions";
 import MovieList from "../movie-list/movie-list";
 import GenresList from "../genres-list/genres-list";
 import FilmTypes from "../../types/types";
+import {getGenresList} from "../../utils";
 
 const Main = (props) => {
-  const {films, genres, filmHeader, onPlayClick} = props;
+  const {films, filteredFilms, filmHeader, onPlayClick, activeGenre, changeGenre, filterFilms} = props;
+  const genres = getGenresList(films);
 
   return <React.Fragment>
     <section className="movie-card">
@@ -66,9 +70,9 @@ const Main = (props) => {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <GenresList genres={genres} />
+        <GenresList genres={genres} activeGenre={activeGenre} onGenreClick={changeGenre} filterFilms={filterFilms} />
 
-        <MovieList films={films} />
+        <MovieList films={filteredFilms} />
 
         <div className="catalog__more">
           <button className="catalog__button" type="button">Show more</button>
@@ -94,9 +98,28 @@ const Main = (props) => {
 
 Main.propTypes = {
   films: FilmTypes.list.isRequired,
-  genres: FilmTypes.genres.isRequired,
+  filteredFilms: FilmTypes.list.isRequired,
   filmHeader: FilmTypes.header.isRequired,
   onPlayClick: PropTypes.func.isRequired,
+  activeGenre: PropTypes.string.isRequired,
+  changeGenre: PropTypes.func.isRequired,
+  filterFilms: PropTypes.func.isRequired,
 };
 
-export default Main;
+const mapStateToProps = (state) => ({
+  films: state.films,
+  filteredFilms: state.filteredFilms,
+  activeGenre: state.genre,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  changeGenre(genre) {
+    dispatch(ActionCreator.changeGenre(genre));
+  },
+  filterFilms() {
+    dispatch(ActionCreator.filterFilms());
+  },
+});
+
+export {Main};
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
