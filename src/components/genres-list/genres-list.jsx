@@ -5,7 +5,7 @@ import {getGenresList} from "../../utils";
 
 const GenresList = (props) => {
 
-  const {films, activeGenre, onGenreClick, filterFilms} = props;
+  const {films, activeGenre, onGenreClick, filterFilms, resetCards} = props;
   const genres = getGenresList(films);
 
   return (
@@ -13,6 +13,7 @@ const GenresList = (props) => {
       if (evt.target.tagName === `A`) {
         onGenreClick(evt.target.textContent);
         filterFilms(films, evt.target.textContent);
+        resetCards();
       }
     }}>
 
@@ -31,6 +32,7 @@ GenresList.propTypes = {
   activeGenre: PropTypes.string.isRequired,
   onGenreClick: PropTypes.func.isRequired,
   filterFilms: PropTypes.func.isRequired,
+  resetCards: PropTypes.func.isRequired,
 };
 
 export default GenresList;
