@@ -1,15 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
+import FilmTypes from "../../types/types";
+import {getGenresList} from "../../utils";
 
 const GenresList = (props) => {
 
-  const {genres, activeGenre, onGenreClick, filterFilms} = props;
+  const {films, activeGenre, onGenreClick, filterFilms} = props;
+  const genres = getGenresList(films);
 
   return (
     <ul className="catalog__genres-list" onClick={(evt) => {
       if (evt.target.tagName === `A`) {
         onGenreClick(evt.target.textContent);
-        filterFilms();
+        filterFilms(films, evt.target.textContent);
       }
     }}>
 
@@ -24,7 +27,7 @@ const GenresList = (props) => {
 };
 
 GenresList.propTypes = {
-  genres: PropTypes.arrayOf(PropTypes.string).isRequired,
+  films: FilmTypes.list.isRequired,
   activeGenre: PropTypes.string.isRequired,
   onGenreClick: PropTypes.func.isRequired,
   filterFilms: PropTypes.func.isRequired,

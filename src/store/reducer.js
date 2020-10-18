@@ -20,7 +20,7 @@ const reducer = (state = initialState, action) => {
 
     case FILTER_FILMS:
       return extend(state, {
-        filteredFilms: action.payload(state.films, state.genre),
+        filteredFilms: action.payload,
       });
   }
 

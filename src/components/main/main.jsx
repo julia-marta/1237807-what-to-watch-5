@@ -6,11 +6,9 @@ import {ActionCreator} from "../../store/actions";
 import MovieList from "../movie-list/movie-list";
 import GenresList from "../genres-list/genres-list";
 import FilmTypes from "../../types/types";
-import {getGenresList} from "../../utils";
 
 const Main = (props) => {
   const {films, filteredFilms, filmHeader, onPlayClick, activeGenre, changeGenre, filterFilms} = props;
-  const genres = getGenresList(films);
 
   return <React.Fragment>
     <section className="movie-card">
@@ -70,7 +68,7 @@ const Main = (props) => {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <GenresList genres={genres} activeGenre={activeGenre} onGenreClick={changeGenre} filterFilms={filterFilms} />
+        <GenresList films={films} activeGenre={activeGenre} onGenreClick={changeGenre} filterFilms={filterFilms} />
 
         <MovieList films={filteredFilms} />
 
@@ -116,8 +114,8 @@ const mapDispatchToProps = (dispatch) => ({
   changeGenre(genre) {
     dispatch(ActionCreator.changeGenre(genre));
   },
-  filterFilms() {
-    dispatch(ActionCreator.filterFilms());
+  filterFilms(films, genre) {
+    dispatch(ActionCreator.filterFilms(films, genre));
   },
 });
 

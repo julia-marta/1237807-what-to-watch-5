@@ -12,9 +12,9 @@ export const ActionCreator = {
     type: CHANGE_GENRE,
     payload: genre,
   }),
-  filterFilms: () => ({
+  filterFilms: (films, genre) => ({
     type: FILTER_FILMS,
-    payload: (films, genre) => getFilmsByGenre(films, genre),
+    payload: getFilmsByGenre(films, genre),
   })
 
 };
