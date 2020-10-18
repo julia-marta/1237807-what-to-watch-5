@@ -9,14 +9,14 @@ import Player from "../player/player";
 import FilmTypes from "../../types/types";
 
 const App = (props) => {
-  const {films, genres, filmHeader, filmFull} = props;
+  const {films, filmHeader, filmFull} = props;
 
   return (
 
     <BrowserRouter>
       <Switch>
         <Route exact path="/" render={({history}) => (
-          <Main films={films} genres={genres} filmHeader={filmHeader} onPlayClick={(id) => history.push(`/player/` + id)}/>
+          <Main filmHeader={filmHeader} onPlayClick={(id) => history.push(`/player/` + id)}/>
         )} />
         <Route exact path="/login">
           <SignIn />
@@ -40,7 +40,6 @@ const App = (props) => {
 
 App.propTypes = {
   films: FilmTypes.list.isRequired,
-  genres: FilmTypes.genres.isRequired,
   filmHeader: FilmTypes.header.isRequired,
   filmFull: FilmTypes.page.isRequired,
 };

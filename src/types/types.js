@@ -46,8 +46,7 @@ const FilmTypes = {
   card: FilmCardType,
   header: FilmHeaderType,
   page: FilmPageType,
-  list: arrayOf(FilmCardType),
-  genres: arrayOf(string),
+  list: arrayOf(FilmCardType)
 };
 
 export default FilmTypes;
