@@ -6,11 +6,13 @@ import MovieOverview from "../movie-overview/movie-overview";
 import MovieDetails from "../movie-details/movie-details";
 import MovieReviews from "../movie-reviews/movie-reviews";
 import MovieList from "../movie-list/movie-list";
+import withActiveTab from "../../hocs/with-active-tab";
 import FilmTypes from "../../types/types";
 import {Tab} from "../../const";
 import {getRelatedFilms} from "../../utils";
 
 const {OVERVIEW, DETAILS, REVIEWS} = Tab;
+const TabsWrapped = withActiveTab(Tabs);
 
 const MoviePage = (props) => {
   const {films, film, onPlayClick} = props;
@@ -73,7 +75,7 @@ const MoviePage = (props) => {
           </div>
 
           <div className="movie-card__desc">
-            <Tabs renderTab={(activeTab) => {
+            <TabsWrapped renderTab={(activeTab) => {
 
               switch (activeTab) {
                 case OVERVIEW:
