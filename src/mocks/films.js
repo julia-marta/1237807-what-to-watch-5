@@ -1,6 +1,6 @@
 import REVIEWS from "./reviews";
 
-const FILMS_COUNT = 8;
+const FILMS_COUNT = 16;
 const FILM_TITLES = [
   `The Grand Budapest Hotel`,
   `Bohemian Rhapsody`,
@@ -9,7 +9,15 @@ const FILM_TITLES = [
   `Johnny English`,
   `Shutter Island`,
   `Pulp Fiction`,
-  `War of the Worlds`
+  `War of the Worlds`,
+  `Fantastic Beasts: The Crimes of Grindelwald`,
+  `Macbeth`,
+  `We need to talk about Kevin`,
+  `What We Do in the Shadows`,
+  `No Country for Old Men`,
+  `Snatch`,
+  `Seven Years in Tibet`,
+  `Midnight Special`
 ];
 
 const FILM_PREVIEWS = [
@@ -20,7 +28,15 @@ const FILM_PREVIEWS = [
   `johnny-english`,
   `shutter-island`,
   `pulp-fiction`,
-  `war-of-the-worlds`
+  `war-of-the-worlds`,
+  `fantastic-beasts-the-crimes-of-grindelwald`,
+  `macbeth`,
+  `we-need-to-talk-about-kevin`,
+  `what-we-do-in-the-shadows`,
+  `no-country-for-old-men`,
+  `snatch`,
+  `seven-years-in-tibet`,
+  `midnight-special`
 ];
 
 const GENRES = [
@@ -31,10 +47,18 @@ const GENRES = [
   `Comedy`,
   `Thriller`,
   `Crime`,
-  `Sci-Fi`
+  `Sci-Fi`,
+  `Drama`,
+  `Music`,
+  `Biography`,
+  `Survival`,
+  `Comedy`,
+  `Thriller`,
+  `Crime`,
+  `Sci-Fi`,
 ];
 
-const YEARS = [2014, 2018, 2009, 2015, 2003, 2010, 1994, 2005];
+const YEARS = [2014, 2018, 2009, 2015, 2003, 2010, 1994, 2005, 2018, 2015, 2011, 2014, 2007, 2000, 1997, 2016];
 
 const generateFilm = (i) => {
   return {
