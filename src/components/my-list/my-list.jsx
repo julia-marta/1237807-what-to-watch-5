@@ -1,7 +1,10 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import MovieList from "../movie-list/movie-list";
+import withActiveCard from "../../hocs/with-active-card/with-active-card";
 import FilmTypes from "../../types/types";
+
+const MovieListWrapped = withActiveCard(MovieList);
 
 const MyList = (props) => {
   const {films} = props;
@@ -29,7 +32,7 @@ const MyList = (props) => {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <MovieList films={films} />
+        <MovieListWrapped films={films} />
 
       </section>
 

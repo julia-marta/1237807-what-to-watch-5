@@ -6,13 +6,16 @@ import MovieOverview from "../movie-overview/movie-overview";
 import MovieDetails from "../movie-details/movie-details";
 import MovieReviews from "../movie-reviews/movie-reviews";
 import MovieList from "../movie-list/movie-list";
-import withActiveTab from "../../hocs/with-active-tab";
+import withActiveTab from "../../hocs/with-active-tab/with-active-tab";
+import withActiveCard from "../../hocs/with-active-card/with-active-card";
 import FilmTypes from "../../types/types";
 import {Tab} from "../../const";
 import {getRelatedFilms} from "../../utils";
 
 const {OVERVIEW, DETAILS, REVIEWS} = Tab;
+
 const TabsWrapped = withActiveTab(Tabs);
+const MovieListWrapped = withActiveCard(MovieList);
 
 const MoviePage = (props) => {
   const {films, film, onPlayClick} = props;
@@ -99,7 +102,7 @@ const MoviePage = (props) => {
       <section className="catalog catalog--like-this">
         <h2 className="catalog__title">More like this</h2>
 
-        <MovieList films={relatedFilms} />
+        <MovieListWrapped films={relatedFilms} />
       </section>
 
       <footer className="page-footer">

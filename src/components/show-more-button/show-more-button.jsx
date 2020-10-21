@@ -6,7 +6,9 @@ const ShowMoreButton = (props) => {
 
   return (
     <div className="catalog__more">
-      <button className="catalog__button" type="button" onClick={() => onShowMoreButtonClick(filmsToShowCount)}>Show more</button>
+      <button className="catalog__button" type="button" onClick={() => onShowMoreButtonClick(filmsToShowCount)}>
+        Show more
+      </button>
     </div>
   );
 };
