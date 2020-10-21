@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import GenresListItem from "../genres-list-item/genres-list-item";
 import FilmTypes from "../../types/types";
 import {getGenresList} from "../../utils";
 
@@ -9,18 +10,11 @@ const GenresList = (props) => {
   const genres = getGenresList(films);
 
   return (
-    <ul className="catalog__genres-list" onClick={(evt) => {
-      if (evt.target.tagName === `A`) {
-        onGenreClick(evt.target.textContent);
-        filterFilms(films, evt.target.textContent);
-        resetCards();
-      }
-    }}>
+    <ul className="catalog__genres-list">
 
       {genres.map((genre, i) => (
-        <li key ={i + 1} className={`catalog__genres-item ${genre === activeGenre ? `catalog__genres-item--active` : ``}`}>
-          <a href="#" className="catalog__genres-link">{genre}</a>
-        </li>
+        <GenresListItem key ={i + genre} films={films} genre={genre} isActive={genre === activeGenre}
+          onGenreClick={onGenreClick} filterFilms={filterFilms} resetCards={resetCards}/>
       ))}
 
     </ul>

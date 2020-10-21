@@ -2,7 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import ReviewForm from "../review-form/review-form";
+import withRating from "../../hocs/with-rating/with-rating";
 import FilmTypes from "../../types/types";
+
+const ReviewFormWrapped = withRating(ReviewForm);
 
 
 const AddReview = (props) => {
@@ -50,7 +53,7 @@ const AddReview = (props) => {
       </div>
 
       <div className="add-review">
-        <ReviewForm />
+        <ReviewFormWrapped />
       </div>
 
     </section>

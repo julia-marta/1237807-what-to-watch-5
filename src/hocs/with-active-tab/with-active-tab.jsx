@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {Tab} from "../const";
+import {Tab} from "../../const";
 
 const {OVERVIEW} = Tab;
 

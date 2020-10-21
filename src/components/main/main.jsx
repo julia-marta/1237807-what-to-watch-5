@@ -1,17 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
-import {connect} from "react-redux";
-import {ActionCreator} from "../../store/actions";
-import MovieList from "../movie-list/movie-list";
-import GenresList from "../genres-list/genres-list";
-import ShowMoreButton from "../show-more-button/show-more-button";
+import Catalog from "../catalog/catalog";
 import FilmTypes from "../../types/types";
 
 const Main = (props) => {
-  const {films, filteredFilms, filmHeader, onPlayClick, activeGenre, changeGenre, filterFilms, cardsCount, showMoreCards, resetCards} = props;
-  const renderedFilms = filteredFilms.slice(0, cardsCount);
-  const renderedFilmsCount = renderedFilms.length;
+  const {filmHeader, onPlayClick} = props;
+
 
   return <React.Fragment>
     <section className="movie-card">
@@ -68,17 +63,7 @@ const Main = (props) => {
     </section>
 
     <div className="page-content">
-      <section className="catalog">
-        <h2 className="catalog__title visually-hidden">Catalog</h2>
-
-        <GenresList films={films} activeGenre={activeGenre} onGenreClick={changeGenre} filterFilms={filterFilms} resetCards={resetCards} />
-
-        <MovieList films={renderedFilms} />
-
-        {filteredFilms.length > renderedFilmsCount ?
-          <ShowMoreButton onShowMoreButtonClick={showMoreCards} filmsToShowCount={filteredFilms.slice(renderedFilmsCount).length}/>
-          : ``}
-      </section>
+      <Catalog />
 
       <footer className="page-footer">
         <div className="logo">
@@ -98,39 +83,8 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  films: FilmTypes.list.isRequired,
-  filteredFilms: FilmTypes.list.isRequired,
   filmHeader: FilmTypes.header.isRequired,
   onPlayClick: PropTypes.func.isRequired,
-  activeGenre: PropTypes.string.isRequired,
-  changeGenre: PropTypes.func.isRequired,
-  filterFilms: PropTypes.func.isRequired,
-  cardsCount: PropTypes.number.isRequired,
-  showMoreCards: PropTypes.func.isRequired,
-  resetCards: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  films: state.films,
-  filteredFilms: state.filteredFilms,
-  activeGenre: state.genre,
-  cardsCount: state.cardsCount,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  changeGenre(genre) {
-    dispatch(ActionCreator.changeGenre(genre));
-  },
-  filterFilms(films, genre) {
-    dispatch(ActionCreator.filterFilms(films, genre));
-  },
-  showMoreCards(filmsToShowCount) {
-    dispatch(ActionCreator.showMoreCards(filmsToShowCount));
-  },
-  resetCards() {
-    dispatch(ActionCreator.resetCards());
-  }
-});
-
-export {Main};
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default Main;
