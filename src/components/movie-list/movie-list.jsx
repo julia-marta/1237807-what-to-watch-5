@@ -4,6 +4,8 @@ import {useHistory} from "react-router-dom";
 import MovieCard from "../movie-card/movie-card";
 import FilmTypes from "../../types/types";
 
+const MemoMovieCard = React.memo(MovieCard);
+
 const MovieList = (props) => {
 
   const {films, activeCard, onMovieCardOver, onMovieCardOut} = props;
@@ -12,7 +14,7 @@ const MovieList = (props) => {
   return (
     <div className="catalog__movies-list">
       {films.map((film, i) => (
-        <MovieCard key ={`${i}-${film.id}`} film={film}
+        <MemoMovieCard key ={`${i}-${film.id}`} film={film}
           onMovieCardOver ={onMovieCardOver} onMovieCardOut={onMovieCardOut}
           isVideoPlaying ={activeCard === film.id} history={history} />
       ))}

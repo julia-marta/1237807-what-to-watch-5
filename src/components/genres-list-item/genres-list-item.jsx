@@ -22,7 +22,7 @@ export default class GenresListItem extends PureComponent {
 
     return (
       <li className={`catalog__genres-item ${isActive ? `catalog__genres-item--active` : ``}`}>
-        <a href="#" className="catalog__genres-link" onClick={() => this._handleGenreClick()}>
+        <a className="catalog__genres-link" onClick={() => this._handleGenreClick()}>
           {genre}
         </a>
       </li>
