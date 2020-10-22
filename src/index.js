@@ -10,7 +10,7 @@ const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ ? window.
 
 ReactDOM.render(
     <Provider store={store}>
-      <App films={films} filmHeader={films[0]} filmFull={films[0]} />
+      <App films={films} filmHeader={films[0]} />
     </Provider>,
     document.querySelector(`#root`)
 );
