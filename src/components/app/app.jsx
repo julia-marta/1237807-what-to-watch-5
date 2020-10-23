@@ -6,10 +6,13 @@ import MyList from "../my-list/my-list";
 import MoviePage from "../movie-page/movie-page";
 import AddReview from "../add-review/add-review";
 import Player from "../player/player";
+import withVideo from "../../hocs/with-video/with-video";
 import FilmTypes from "../../types/types";
 
+const VideoPlayer = withVideo(Player);
+
 const App = (props) => {
-  const {films, filmHeader, filmFull} = props;
+  const {films, filmHeader} = props;
 
   return (
 
@@ -25,13 +28,13 @@ const App = (props) => {
           <MyList films={films} />
         </Route>
         <Route exact path="/films/:id" render={({history}) => (
-          <MoviePage films={films} film={filmFull} onPlayClick={(id) => history.push(`/player/` + id)}/>
+          <MoviePage onPlayClick={(id) => history.push(`/player/` + id)}/>
         )} />
         <Route exact path="/films/:id/review" render={({history}) => (
           <AddReview film={filmHeader} onAvatarClick={() => history.push(`/mylist`)} />
         )} />
         <Route exact path="/player/:id" render={({history}) => (
-          <Player onExitClick={() => history.push(`/`)} />
+          <VideoPlayer onExitClick={(id) => history.push(`/films/` + id)} />
         )} />
       </Switch>
     </BrowserRouter>
@@ -41,7 +44,6 @@ const App = (props) => {
 App.propTypes = {
   films: FilmTypes.list.isRequired,
   filmHeader: FilmTypes.header.isRequired,
-  filmFull: FilmTypes.page.isRequired,
 };
 
 export default App;

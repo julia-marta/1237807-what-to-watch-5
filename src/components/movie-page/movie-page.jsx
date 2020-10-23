@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+import {Link, useParams} from "react-router-dom";
 import Tabs from "../tabs/tabs";
 import MovieOverview from "../movie-overview/movie-overview";
 import MovieDetails from "../movie-details/movie-details";
@@ -10,7 +11,7 @@ import withActiveTab from "../../hocs/with-active-tab/with-active-tab";
 import withActiveCard from "../../hocs/with-active-card/with-active-card";
 import FilmTypes from "../../types/types";
 import {Tab} from "../../const";
-import {getRelatedFilms} from "../../utils";
+import {getCurrentFilm, getRelatedFilms} from "../../utils";
 
 const {OVERVIEW, DETAILS, REVIEWS} = Tab;
 
@@ -18,7 +19,9 @@ const TabsWrapped = withActiveTab(Tabs);
 const MovieListWrapped = withActiveCard(MovieList);
 
 const MoviePage = (props) => {
-  const {films, film, onPlayClick} = props;
+  const {films, onPlayClick} = props;
+  const currentID = Number(useParams().id);
+  const film = getCurrentFilm(films, currentID);
   const relatedFilms = getRelatedFilms(films, film);
 
   return <React.Fragment>
@@ -124,8 +127,12 @@ const MoviePage = (props) => {
 
 MoviePage.propTypes = {
   films: FilmTypes.list.isRequired,
-  film: FilmTypes.page.isRequired,
   onPlayClick: PropTypes.func.isRequired,
 };
 
-export default MoviePage;
+const mapStateToProps = (state) => ({
+  films: state.films,
+});
+
+export {MoviePage};
+export default connect(mapStateToProps)(MoviePage);

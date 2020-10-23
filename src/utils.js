@@ -45,8 +45,15 @@ export const getLevel = (score) => {
   }
 };
 
+export const getCurrentFilm = (films, id) => {
+  return films.reduce((accumulator, film) => {
+    const currentFilm = (film.id === id) ? accumulator = film : accumulator;
+    return currentFilm;
+  }, {});
+};
+
 export const getRelatedFilms = (films, currentFilm) => {
-  const similarGenreFilms = films.filter((film) => film.genre === currentFilm.genre);
+  const similarGenreFilms = films.filter((film) => film.genre === currentFilm.genre && film !== currentFilm);
 
   if (similarGenreFilms.length === 0) {
     return films.slice(0, RELATED_FILMS_COUNT);
@@ -76,4 +83,11 @@ export const getFilmsByGenre = (films, genre) => {
   }
 
   return films.filter((film) => film.genre === genre);
+};
+
+export const secondsToMinutes = (duration) => {
+  const minutes = Math.floor(duration / 60);
+  const seconds = duration - minutes * 60;
+
+  return `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
 };
