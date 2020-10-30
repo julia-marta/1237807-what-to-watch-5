@@ -46,10 +46,8 @@ export const getLevel = (score) => {
 };
 
 export const getCurrentFilm = (films, id) => {
-  return films.reduce((accumulator, film) => {
-    const currentFilm = (film.id === id) ? accumulator = film : accumulator;
-    return currentFilm;
-  }, {});
+  return films.find((film) => film.id === id)
+
 };
 
 export const getRelatedFilms = (films, currentFilm) => {
