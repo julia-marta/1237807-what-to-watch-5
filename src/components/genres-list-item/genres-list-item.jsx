@@ -1,6 +1,5 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
-import FilmTypes from "../../types/types";
 
 export default class GenresListItem extends PureComponent {
   constructor(props) {
@@ -10,10 +9,9 @@ export default class GenresListItem extends PureComponent {
   }
 
   _handleGenreClick() {
-    const {films, genre, onGenreClick, filterFilms, resetCards} = this.props;
+    const {genre, onGenreClick, resetCards} = this.props;
 
     onGenreClick(genre);
-    filterFilms(films, genre);
     resetCards();
   }
 
@@ -31,10 +29,8 @@ export default class GenresListItem extends PureComponent {
 }
 
 GenresListItem.propTypes = {
-  films: FilmTypes.list.isRequired,
   genre: PropTypes.string.isRequired,
   isActive: PropTypes.bool.isRequired,
   onGenreClick: PropTypes.func.isRequired,
-  filterFilms: PropTypes.func.isRequired,
   resetCards: PropTypes.func.isRequired,
 };

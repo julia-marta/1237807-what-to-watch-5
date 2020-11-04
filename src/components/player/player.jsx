@@ -1,23 +1,20 @@
 import React, {Fragment} from "react";
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
-import {useParams} from "react-router-dom";
-import FilmTypes from "../../types/types";
-import {getCurrentFilm, secondsToMinutes} from "../../utils";
+import movieCardProp from "../../prop-types/movie-card.prop";
+import {secondsToMinutes} from "../../utils";
 
 const Player = (props) => {
 
-  const {films, onExitClick, renderPlayer, isPlaying, duration, progress, onPlayButtonClick, onFullScreenButtonClick} = props;
-  const currentID = Number(useParams().id);
-  const film = getCurrentFilm(films, currentID);
+  const {film, onExitClick, renderPlayer, isPlaying, duration, progress, onPlayButtonClick, onFullScreenButtonClick} = props;
+  const {id, name, videoLink} = film;
   const timeElapsed = secondsToMinutes(duration - progress);
   const togglePosition = progress * 100 / duration;
 
   return (
     <div className="player">
-      {renderPlayer(film.trailer)}
+      {renderPlayer(videoLink)}
 
-      <button type="button" className="player__exit" onClick={() => onExitClick(film.id)}>Exit</button>
+      <button type="button" className="player__exit" onClick={() => onExitClick(id)}>Exit</button>
 
       <div className="player__controls">
         <div className="player__controls-row">
@@ -46,7 +43,7 @@ const Player = (props) => {
               </Fragment>
             }
           </button>
-          <div className="player__name">{film.title}</div>
+          <div className="player__name">{name}</div>
 
           <button type="button" className="player__full-screen" onClick={onFullScreenButtonClick}>
             <svg viewBox="0 0 27 27" width="27" height="27">
@@ -62,7 +59,7 @@ const Player = (props) => {
 };
 
 Player.propTypes = {
-  films: FilmTypes.list.isRequired,
+  film: movieCardProp.isRequired,
   onExitClick: PropTypes.func.isRequired,
   renderPlayer: PropTypes.func.isRequired,
   isPlaying: PropTypes.bool.isRequired,
@@ -72,10 +69,4 @@ Player.propTypes = {
   onFullScreenButtonClick: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  films: state.films,
-});
-
-export {Player};
-export default connect(mapStateToProps)(Player);
-
+export default Player;

@@ -1,4 +1,10 @@
 import React, {PureComponent, createRef} from "react";
+import PropTypes from "prop-types";
+import {createAPI} from "../../services/api";
+import {adaptFilmToClient} from "../../utils";
+import {APIRoute} from "../../const";
+
+const api = createAPI(() => {});
 
 const withVideo = (Component) => {
   class WithVideo extends PureComponent {
@@ -8,6 +14,7 @@ const withVideo = (Component) => {
       this._videoRef = createRef();
 
       this.state = {
+        film: {},
         isLoading: true,
         isPlaying: false,
         duration: 0,
@@ -19,6 +26,14 @@ const withVideo = (Component) => {
     }
 
     componentDidMount() {
+      const {id} = this.props;
+
+      api.get(`${APIRoute.FILMS}/${id}`)
+      .then(({data}) => this.setState({film: adaptFilmToClient(data)}))
+      .catch((error) => {
+        throw error;
+      });
+
       const video = this._videoRef.current;
 
       video.oncanplay = () => {
@@ -35,7 +50,18 @@ const withVideo = (Component) => {
       };
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps) {
+      const prevId = prevProps.id;
+      const {id} = this.props;
+
+      if (id !== prevId) {
+        api.get(`${APIRoute.FILMS}/${id}`)
+      .then(({data}) => this.setState({film: adaptFilmToClient(data)}))
+      .catch((error) => {
+        throw error;
+      });
+      }
+
       const video = this._videoRef.current;
 
       if (this.state.isPlaying) {
@@ -63,17 +89,18 @@ const withVideo = (Component) => {
     }
 
     render() {
-      const {isPlaying, duration, progress} = this.state;
+      const {film, isPlaying, duration, progress} = this.state;
 
       return (
-        <Component {...this.props} isPlaying={isPlaying}
+        <Component {...this.props} film={film}
+          isPlaying={isPlaying}
           duration={duration}
           progress={progress}
           onPlayButtonClick={this._handlePlayButton}
           onFullScreenButtonClick={this._handleFullScreenButton}
-          renderPlayer={(film) => {
+          renderPlayer={(video) => {
             return (
-              <video ref={this._videoRef} src={film} className="player__video" poster="../img/player-poster.jpg"></video>
+              <video ref={this._videoRef} src={video} className="player__video" poster="../img/player-poster.jpg"></video>
             );
           }} />
       );
@@ -81,6 +108,7 @@ const withVideo = (Component) => {
   }
 
   WithVideo.propTypes = {
+    id: PropTypes.string.isRequired,
 
   };
 

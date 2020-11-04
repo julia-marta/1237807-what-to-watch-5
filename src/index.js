@@ -1,16 +1,35 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {createStore} from "redux";
+import {createStore, applyMiddleware} from "redux";
+import {composeWithDevTools} from "redux-devtools-extension";
 import {Provider} from "react-redux";
+import thunk from "redux-thunk";
+import swal from 'sweetalert';
 import App from "./components/app/app";
-import {reducer} from "./store/reducer";
-import films from "./mocks/films";
+import rootReducer from "./store/reducers/root-reducer";
+import {fetchFilms, fetchPromoFilm} from "./store/api-actions";
+import {adapter} from "./store/middlewares/adapter";
+import {createAPI} from "./services/api";
 
-const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f);
+const api = createAPI(() => {});
 
-ReactDOM.render(
-    <Provider store={store}>
-      <App films={films} filmHeader={films[0]} />
-    </Provider>,
-    document.querySelector(`#root`)
-);
+const store = createStore(rootReducer, composeWithDevTools(
+    applyMiddleware(thunk.withExtraArgument(api)),
+    applyMiddleware(adapter)
+));
+
+Promise.all([
+  store.dispatch(fetchFilms()),
+  store.dispatch(fetchPromoFilm()),
+])
+.then(() => {
+  ReactDOM.render(
+      <Provider store={store}>
+        <App />
+      </Provider>,
+      document.querySelector(`#root`)
+  );
+})
+.catch(() => {
+  swal(`Error`, `Something went wrong!`, `error`);
+});

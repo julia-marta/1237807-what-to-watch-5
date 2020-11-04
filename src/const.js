@@ -8,3 +8,19 @@ export const Tab = {
   DETAILS: `Details`,
   REVIEWS: `Reviews`,
 };
+
+export const AppRoute = {
+  ROOT: `/`,
+  LOGIN: `/login`,
+  MY_LIST: `/mylist`,
+  FILMS: `/films`,
+  REVIEW: `/review`,
+  PLAYER: `/player`,
+};
+
+export const APIRoute = {
+  FILMS: `/films`,
+  PROMO: `/films/promo`,
+  FAVORITE: `/favorite`,
+  COMMENTS: `/comments`,
+};

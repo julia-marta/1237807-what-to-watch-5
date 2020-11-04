@@ -1,17 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../store/actions";
+import {changeGenre, showMoreCards, resetCards} from "../../store/actions";
 import MovieList from "../movie-list/movie-list";
 import GenresList from "../genres-list/genres-list";
 import ShowMoreButton from "../show-more-button/show-more-button";
 import withActiveCard from "../../hocs/with-active-card/with-active-card";
-import FilmTypes from "../../types/types";
+import {getGenre, getCardsCount, getFilteredFilms, getGenres} from "../../store/selectors";
+import movieCardProp from "../../prop-types/movie-card.prop";
 
 const MovieListWrapped = withActiveCard(MovieList);
 
 const Catalog = (props) => {
-  const {films, filteredFilms, activeGenre, changeGenre, filterFilms, cardsCount, showMoreCards, resetCards} = props;
+  const {filteredFilms, genresList, activeGenre, changeGenreAction, cardsCount, showMoreCardsAction, resetCardsAction} = props;
   const renderedFilms = filteredFilms.slice(0, cardsCount);
   const renderedFilmsCount = renderedFilms.length;
 
@@ -19,48 +20,43 @@ const Catalog = (props) => {
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-      <GenresList films={films} activeGenre={activeGenre} onGenreClick={changeGenre}
-        filterFilms={filterFilms} resetCards={resetCards} />
+      <GenresList genres={genresList} activeGenre={activeGenre} onGenreClick={changeGenreAction} resetCards={resetCardsAction} />
 
       <MovieListWrapped films={renderedFilms} />
 
       {filteredFilms.length > renderedFilmsCount ?
-        <ShowMoreButton onShowMoreButtonClick={showMoreCards} filmsToShowCount={filteredFilms.slice(renderedFilmsCount).length}/>
+        <ShowMoreButton onShowMoreButtonClick={showMoreCardsAction} filmsToShowCount={filteredFilms.slice(renderedFilmsCount).length}/>
         : ``}
     </section>
   );
 };
 
 Catalog.propTypes = {
-  films: FilmTypes.list.isRequired,
-  filteredFilms: FilmTypes.list.isRequired,
+  filteredFilms: PropTypes.arrayOf(movieCardProp).isRequired,
+  genresList: PropTypes.arrayOf(PropTypes.string).isRequired,
   activeGenre: PropTypes.string.isRequired,
-  changeGenre: PropTypes.func.isRequired,
-  filterFilms: PropTypes.func.isRequired,
+  changeGenreAction: PropTypes.func.isRequired,
   cardsCount: PropTypes.number.isRequired,
-  showMoreCards: PropTypes.func.isRequired,
-  resetCards: PropTypes.func.isRequired,
+  showMoreCardsAction: PropTypes.func.isRequired,
+  resetCardsAction: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  films: state.films,
-  filteredFilms: state.filteredFilms,
-  activeGenre: state.genre,
-  cardsCount: state.cardsCount,
+  filteredFilms: getFilteredFilms(state),
+  genresList: getGenres(state),
+  activeGenre: getGenre(state),
+  cardsCount: getCardsCount(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  changeGenre(genre) {
-    dispatch(ActionCreator.changeGenre(genre));
+  changeGenreAction(genre) {
+    dispatch(changeGenre(genre));
   },
-  filterFilms(films, genre) {
-    dispatch(ActionCreator.filterFilms(films, genre));
+  showMoreCardsAction(filmsToShowCount) {
+    dispatch(showMoreCards(filmsToShowCount));
   },
-  showMoreCards(filmsToShowCount) {
-    dispatch(ActionCreator.showMoreCards(filmsToShowCount));
-  },
-  resetCards() {
-    dispatch(ActionCreator.resetCards());
+  resetCardsAction() {
+    dispatch(resetCards());
   }
 });
 

@@ -1,68 +1,107 @@
-import React from "react";
+import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import ReviewForm from "../review-form/review-form";
 import withRating from "../../hocs/with-rating/with-rating";
-import FilmTypes from "../../types/types";
+import {createAPI} from "../../services/api";
+import {adaptFilmToClient} from "../../utils";
+import {AppRoute, APIRoute} from "../../const";
+
+const api = createAPI(() => {});
 
 const ReviewFormWrapped = withRating(ReviewForm);
+const {ROOT, FILMS} = AppRoute;
 
+export default class AddReview extends PureComponent {
 
-const AddReview = (props) => {
-  const {film, onAvatarClick} = props;
+  constructor(props) {
+    super(props);
 
-  return (
-    <section className="movie-card movie-card--full">
-      <div className="movie-card__header">
-        <div className="movie-card__bg">
-          <img src={`img/${film.cover}`} alt={film.title} />
-        </div>
+    this.state = {
+      film: {},
+    };
+  }
 
-        <h1 className="visually-hidden">WTW</h1>
+  componentDidMount() {
+    const {id} = this.props;
 
-        <header className="page-header">
-          <div className="logo">
-            <Link to='/' className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </Link>
+    api.get(`${APIRoute.FILMS}/${id}`)
+    .then(({data}) => this.setState({film: adaptFilmToClient(data)}))
+    .catch((error) => {
+      throw error;
+    });
+  }
+
+  componentDidUpdate(prevProps) {
+    const prevId = prevProps.id;
+    const {id} = this.props;
+
+    if (id !== prevId) {
+      api.get(`${APIRoute.FILMS}/${id}`)
+    .then(({data}) => this.setState({film: adaptFilmToClient(data)}))
+    .catch((error) => {
+      throw error;
+    });
+    }
+  }
+
+  render() {
+
+    const {onAvatarClick} = this.props;
+    const {film} = this.state;
+    const {id, name, backgroundImage, posterImage} = film;
+
+    return (
+      <section className="movie-card movie-card--full">
+        <div className="movie-card__header">
+          <div className="movie-card__bg" style={{backgroundColor: film.backgroundColor}}>
+            <img src={backgroundImage} alt={name} />
           </div>
 
-          <nav className="breadcrumbs">
-            <ul className="breadcrumbs__list">
-              <li className="breadcrumbs__item">
-                <Link to={`/films/${film.id}`} className="breadcrumbs__link">{film.title}</Link>
-              </li>
-              <li className="breadcrumbs__item">
-                <a className="breadcrumbs__link">Add review</a>
-              </li>
-            </ul>
-          </nav>
+          <h1 className="visually-hidden">WTW</h1>
 
-          <div className="user-block">
-            <div className="user-block__avatar" onClick={onAvatarClick}>
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+          <header className="page-header">
+            <div className="logo">
+              <Link to={ROOT} className="logo__link">
+                <span className="logo__letter logo__letter--1">W</span>
+                <span className="logo__letter logo__letter--2">T</span>
+                <span className="logo__letter logo__letter--3">W</span>
+              </Link>
             </div>
+
+            <nav className="breadcrumbs">
+              <ul className="breadcrumbs__list">
+                <li className="breadcrumbs__item">
+                  <Link to={`${FILMS}/${id}`} className="breadcrumbs__link">{name}</Link>
+                </li>
+                <li className="breadcrumbs__item">
+                  <a className="breadcrumbs__link">Add review</a>
+                </li>
+              </ul>
+            </nav>
+
+            <div className="user-block">
+              <div className="user-block__avatar" onClick={onAvatarClick}>
+                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+              </div>
+            </div>
+          </header>
+
+          <div className="movie-card__poster movie-card__poster--small">
+            <img src={posterImage} alt={`${name} poster`} width="218" height="327" />
           </div>
-        </header>
-
-        <div className="movie-card__poster movie-card__poster--small">
-          <img src={`img/${film.poster}`} alt={`${film.title} poster`} width="218" height="327" />
         </div>
-      </div>
 
-      <div className="add-review">
-        <ReviewFormWrapped />
-      </div>
+        <div className="add-review">
+          <ReviewFormWrapped />
+        </div>
 
-    </section>
-  );
-};
+      </section>
+    );
+  }
+}
 
 AddReview.propTypes = {
-  film: FilmTypes.header.isRequired,
+  id: PropTypes.string.isRequired,
   onAvatarClick: PropTypes.func.isRequired,
 };
-
-export default AddReview;
