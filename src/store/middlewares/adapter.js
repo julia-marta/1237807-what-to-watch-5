@@ -1,7 +1,7 @@
 import {ActionType} from "../actions";
 import {adaptFilmToClient, extend} from "../../utils";
 
-const {LOAD_FILMS, LOAD_PROMO_FILM} = ActionType;
+const {LOAD_FILMS, LOAD_FILM, LOAD_PROMO_FILM} = ActionType;
 
 export const adapter = (_store) => (next) => (action) => {
 
@@ -12,6 +12,12 @@ export const adapter = (_store) => (next) => (action) => {
             payload: action.payload.map((film) => {
               return adaptFilmToClient(film);
             })
+          })
+      );
+    case LOAD_FILM:
+      return next(
+          extend(action, {
+            payload: adaptFilmToClient(action.payload)
           })
       );
     case LOAD_PROMO_FILM:

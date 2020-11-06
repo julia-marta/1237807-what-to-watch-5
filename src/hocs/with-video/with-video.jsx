@@ -1,10 +1,4 @@
 import React, {PureComponent, createRef} from "react";
-import PropTypes from "prop-types";
-import {createAPI} from "../../services/api";
-import {adaptFilmToClient} from "../../utils";
-import {APIRoute} from "../../const";
-
-const api = createAPI(() => {});
 
 const withVideo = (Component) => {
   class WithVideo extends PureComponent {
@@ -14,7 +8,6 @@ const withVideo = (Component) => {
       this._videoRef = createRef();
 
       this.state = {
-        film: {},
         isLoading: true,
         isPlaying: false,
         duration: 0,
@@ -26,13 +19,6 @@ const withVideo = (Component) => {
     }
 
     componentDidMount() {
-      const {id} = this.props;
-
-      api.get(`${APIRoute.FILMS}/${id}`)
-      .then(({data}) => this.setState({film: adaptFilmToClient(data)}))
-      .catch((error) => {
-        throw error;
-      });
 
       const video = this._videoRef.current;
 
@@ -50,17 +36,7 @@ const withVideo = (Component) => {
       };
     }
 
-    componentDidUpdate(prevProps) {
-      const prevId = prevProps.id;
-      const {id} = this.props;
-
-      if (id !== prevId) {
-        api.get(`${APIRoute.FILMS}/${id}`)
-      .then(({data}) => this.setState({film: adaptFilmToClient(data)}))
-      .catch((error) => {
-        throw error;
-      });
-      }
+    componentDidUpdate() {
 
       const video = this._videoRef.current;
 
@@ -89,10 +65,10 @@ const withVideo = (Component) => {
     }
 
     render() {
-      const {film, isPlaying, duration, progress} = this.state;
+      const {isPlaying, duration, progress} = this.state;
 
       return (
-        <Component {...this.props} film={film}
+        <Component {...this.props}
           isPlaying={isPlaying}
           duration={duration}
           progress={progress}
@@ -107,10 +83,7 @@ const withVideo = (Component) => {
     }
   }
 
-  WithVideo.propTypes = {
-    id: PropTypes.string.isRequired,
-
-  };
+  WithVideo.propTypes = {};
 
   return WithVideo;
 };

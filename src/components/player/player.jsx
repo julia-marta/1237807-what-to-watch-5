@@ -1,6 +1,6 @@
 import React, {Fragment} from "react";
 import PropTypes from "prop-types";
-import movieCardProp from "../../prop-types/movie-card.prop";
+import moviePageProp from "../../prop-types/movie-page.prop";
 import {secondsToMinutes} from "../../utils";
 
 const Player = (props) => {
@@ -59,7 +59,7 @@ const Player = (props) => {
 };
 
 Player.propTypes = {
-  film: movieCardProp.isRequired,
+  film: moviePageProp.isRequired,
   onExitClick: PropTypes.func.isRequired,
   renderPlayer: PropTypes.func.isRequired,
   isPlaying: PropTypes.bool.isRequired,

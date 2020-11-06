@@ -6,12 +6,16 @@ import MyList from "../my-list/my-list";
 import MoviePage from "../movie-page/movie-page";
 import AddReview from "../add-review/add-review";
 import Player from "../player/player";
+import withFilm from "../../hocs/with-film/with-film";
+import withReviews from "../../hocs/with-reviews/with-reviews";
 import withVideo from "../../hocs/with-video/with-video";
 import {AppRoute} from "../../const";
 
 const {ROOT, LOGIN, MY_LIST, FILMS, REVIEW, PLAYER} = AppRoute;
 
-const VideoPlayer = withVideo(Player);
+const MoviePageWrapped = withFilm(withReviews(MoviePage));
+const AddReviewWrapped = withFilm(AddReview);
+const PlayerWrapped = withFilm(withVideo(Player));
 
 const App = () => {
 
@@ -28,13 +32,13 @@ const App = () => {
           <MyList />
         </Route>
         <Route exact path={`${FILMS}/:id`} render={({history, match}) => (
-          <MoviePage id={match.params.id} onPlayClick={(id) => history.push(`${PLAYER}/${id}`)}/>
+          <MoviePageWrapped id={match.params.id} onPlayClick={(id) => history.push(`${PLAYER}/${id}`)}/>
         )} />
         <Route exact path={`${FILMS}/:id${REVIEW}`} render={({history, match}) => (
-          <AddReview id={match.params.id} onAvatarClick={() => history.push(MY_LIST)} />
+          <AddReviewWrapped id={match.params.id} onAvatarClick={() => history.push(MY_LIST)} />
         )} />
         <Route exact path={`${PLAYER}/:id`} render={({history, match}) => (
-          <VideoPlayer id={match.params.id} onExitClick={(id) => history.push(`${FILMS}/${id}`)} />
+          <PlayerWrapped id={match.params.id} onExitClick={(id) => history.push(`${FILMS}/${id}`)} />
         )} />
       </Switch>
     </BrowserRouter>
