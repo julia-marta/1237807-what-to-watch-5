@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
+import Header from "../header/header";
 import Tabs from "../tabs/tabs";
 import MovieOverview from "../movie-overview/movie-overview";
 import MovieDetails from "../movie-details/movie-details";
@@ -17,7 +18,7 @@ import reviewProp from "../../prop-types/review.prop";
 import {Tab, AppRoute} from "../../const";
 
 const {OVERVIEW, DETAILS, REVIEWS} = Tab;
-const {ROOT, FILMS, REVIEW, LOGIN} = AppRoute;
+const {FILMS, REVIEW} = AppRoute;
 
 const TabsWrapped = withActiveTab(Tabs);
 const MovieListWrapped = withActiveCard(MovieList);
@@ -37,19 +38,7 @@ const MoviePage = (props) => {
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <header className="page-header movie-card__head">
-          <div className="logo">
-            <Link to={ROOT} className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </Link>
-          </div>
-
-          <div className="user-block">
-            <Link to={LOGIN} className="user-block__link">Sign in</Link>
-          </div>
-        </header>
+        <Header classTitle={`movie-card__head`} />
 
         <div className="movie-card__wrap">
           <div className="movie-card__desc">

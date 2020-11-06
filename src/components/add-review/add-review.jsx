@@ -1,13 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
+import Header from "../header/header";
 import ReviewForm from "../review-form/review-form";
 import withRating from "../../hocs/with-rating/with-rating";
 import moviePageProp from "../../prop-types/movie-page.prop";
 import {AppRoute} from "../../const";
 
 const ReviewFormWrapped = withRating(ReviewForm);
-const {ROOT, FILMS} = AppRoute;
+const {FILMS} = AppRoute;
 
 const AddReview = (props) => {
 
@@ -23,14 +24,7 @@ const AddReview = (props) => {
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <header className="page-header">
-          <div className="logo">
-            <Link to={ROOT} className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </Link>
-          </div>
+        <Header onAvatarClick={onAvatarClick} isAuthorized={true}>
 
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
@@ -43,12 +37,7 @@ const AddReview = (props) => {
             </ul>
           </nav>
 
-          <div className="user-block">
-            <div className="user-block__avatar" onClick={onAvatarClick}>
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-            </div>
-          </div>
-        </header>
+        </ Header>
 
         <div className="movie-card__poster movie-card__poster--small">
           <img src={posterImage} alt={`${name} poster`} width="218" height="327" />
