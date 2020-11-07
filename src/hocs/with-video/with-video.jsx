@@ -19,6 +19,7 @@ const withVideo = (Component) => {
     }
 
     componentDidMount() {
+
       const video = this._videoRef.current;
 
       video.oncanplay = () => {
@@ -36,6 +37,7 @@ const withVideo = (Component) => {
     }
 
     componentDidUpdate() {
+
       const video = this._videoRef.current;
 
       if (this.state.isPlaying) {
@@ -66,23 +68,22 @@ const withVideo = (Component) => {
       const {isPlaying, duration, progress} = this.state;
 
       return (
-        <Component {...this.props} isPlaying={isPlaying}
+        <Component {...this.props}
+          isPlaying={isPlaying}
           duration={duration}
           progress={progress}
           onPlayButtonClick={this._handlePlayButton}
           onFullScreenButtonClick={this._handleFullScreenButton}
-          renderPlayer={(film) => {
+          renderPlayer={(video) => {
             return (
-              <video ref={this._videoRef} src={film} className="player__video" poster="../img/player-poster.jpg"></video>
+              <video ref={this._videoRef} src={video} className="player__video" poster="../img/player-poster.jpg"></video>
             );
           }} />
       );
     }
   }
 
-  WithVideo.propTypes = {
-
-  };
+  WithVideo.propTypes = {};
 
   return WithVideo;
 };

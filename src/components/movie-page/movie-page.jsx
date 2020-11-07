@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {Link, useParams} from "react-router-dom";
+import {Link} from "react-router-dom";
+import Header from "../header/header";
 import Tabs from "../tabs/tabs";
 import MovieOverview from "../movie-overview/movie-overview";
 import MovieDetails from "../movie-details/movie-details";
@@ -9,66 +10,65 @@ import MovieReviews from "../movie-reviews/movie-reviews";
 import MovieList from "../movie-list/movie-list";
 import withActiveTab from "../../hocs/with-active-tab/with-active-tab";
 import withActiveCard from "../../hocs/with-active-card/with-active-card";
-import FilmTypes from "../../types/types";
-import {Tab} from "../../const";
-import {getCurrentFilm, getRelatedFilms} from "../../utils";
+import {getSimilarFilms} from "../../store/selectors";
+import moviePageProp from "../../prop-types/movie-page.prop";
+import movieCardProp from "../../prop-types/movie-card.prop";
+import reviewProp from "../../prop-types/review.prop";
+
+import {Tab, AppRoute} from "../../const";
 
 const {OVERVIEW, DETAILS, REVIEWS} = Tab;
+const {FILMS, REVIEW} = AppRoute;
 
 const TabsWrapped = withActiveTab(Tabs);
 const MovieListWrapped = withActiveCard(MovieList);
 
 const MoviePage = (props) => {
-  const {films, onPlayClick} = props;
-  const currentID = Number(useParams().id);
-  const film = getCurrentFilm(films, currentID);
-  const relatedFilms = getRelatedFilms(films, film);
+
+  const {film, reviews, relatedFilms, onPlayClick} = props;
+  const {id, name, posterImage, backgroundImage, genre, released, isFavorite} = film;
 
   return <React.Fragment>
+
     <section className="movie-card movie-card--full">
       <div className="movie-card__hero">
-        <div className="movie-card__bg">
-          <img src={`img/${film.cover}`} alt={film.title} />
+        <div className="movie-card__bg" style={{backgroundColor: film.backgroundColor}}>
+          <img src={backgroundImage} alt={name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <header className="page-header movie-card__head">
-          <div className="logo">
-            <Link to='/' className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </Link>
-          </div>
-
-          <div className="user-block">
-            <Link to="/login" className="user-block__link">Sign in</Link>
-          </div>
-        </header>
+        <Header classTitle={`movie-card__head`} />
 
         <div className="movie-card__wrap">
           <div className="movie-card__desc">
-            <h2 className="movie-card__title">{film.title}</h2>
+            <h2 className="movie-card__title">{name}</h2>
             <p className="movie-card__meta">
-              <span className="movie-card__genre">{film.genre}</span>
-              <span className="movie-card__year">{film.year}</span>
+              <span className="movie-card__genre">{genre}</span>
+              <span className="movie-card__year">{released}</span>
             </p>
 
             <div className="movie-card__buttons">
-              <button className="btn btn--play movie-card__button" type="button" onClick={() => onPlayClick(film.id)}>
+              <button className="btn btn--play movie-card__button" type="button" onClick={() => onPlayClick(id)}>
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>
                 <span>Play</span>
               </button>
               <button className="btn btn--list movie-card__button" type="button">
-                <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref="#add"></use>
-                </svg>
+                {isFavorite ?
+                  <svg viewBox="0 0 18 14" width="18" height="14">
+                    <use xlinkHref="#in-list"></use>
+                  </svg>
+                  :
+                  <svg viewBox="0 0 19 20" width="19" height="20">
+                    <use xlinkHref="#add"></use>
+                  </svg>
+                }
                 <span>My list</span>
               </button>
-              <Link to={`/films/${film.id}/review`} className="btn movie-card__button">Add review</Link>
+
+              <Link to={`${FILMS}/${id}${REVIEW}`} className="btn movie-card__button">Add review</Link>
             </div>
           </div>
         </div>
@@ -77,12 +77,12 @@ const MoviePage = (props) => {
       <div className="movie-card__wrap movie-card__translate-top">
         <div className="movie-card__info">
           <div className="movie-card__poster movie-card__poster--big">
-            <img src={`img/${film.poster}`} alt={`${film.title} poster`} width="218" height="327" />
+            <img src={posterImage} alt={`${name} poster`} width="218" height="327" />
           </div>
 
           <div className="movie-card__desc">
-            <TabsWrapped renderTab={(activeTab) => {
 
+            <TabsWrapped renderTab={(activeTab) => {
               switch (activeTab) {
                 case OVERVIEW:
                   return <MovieOverview film={film}/>;
@@ -91,11 +91,11 @@ const MoviePage = (props) => {
                   return <MovieDetails film={film}/>;
 
                 case REVIEWS:
-                  return <MovieReviews film={film}/>;
+                  return <MovieReviews reviews={reviews}/>;
               }
-
               return null;
             }} />
+
           </div>
         </div>
       </div>
@@ -126,12 +126,15 @@ const MoviePage = (props) => {
 };
 
 MoviePage.propTypes = {
-  films: FilmTypes.list.isRequired,
+  id: PropTypes.string.isRequired,
+  film: moviePageProp.isRequired,
+  reviews: PropTypes.arrayOf(reviewProp).isRequired,
   onPlayClick: PropTypes.func.isRequired,
+  relatedFilms: PropTypes.arrayOf(movieCardProp).isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  films: state.films,
+const mapStateToProps = (state, props) => ({
+  relatedFilms: getSimilarFilms(state, props),
 });
 
 export {MoviePage};

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {useHistory} from "react-router-dom";
 import MovieCard from "../movie-card/movie-card";
-import FilmTypes from "../../types/types";
+import movieCardProp from "../../prop-types/movie-card.prop";
 
 const MemoMovieCard = React.memo(MovieCard);
 
@@ -23,7 +23,7 @@ const MovieList = (props) => {
 };
 
 MovieList.propTypes = {
-  films: FilmTypes.list.isRequired,
+  films: PropTypes.arrayOf(movieCardProp).isRequired,
   activeCard: PropTypes.number.isRequired,
   onMovieCardOver: PropTypes.func.isRequired,
   onMovieCardOut: PropTypes.func.isRequired,

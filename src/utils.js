@@ -46,10 +46,7 @@ export const getLevel = (score) => {
 };
 
 export const getCurrentFilm = (films, id) => {
-  return films.reduce((accumulator, film) => {
-    const currentFilm = (film.id === id) ? accumulator = film : accumulator;
-    return currentFilm;
-  }, {});
+  return films.find((film) => film.id === id);
 };
 
 export const getRelatedFilms = (films, currentFilm) => {
@@ -68,8 +65,8 @@ export const getRelatedFilms = (films, currentFilm) => {
   return similarGenreFilms.concat(otherFilms);
 };
 
-export const extend = (a, b) => {
-  return Object.assign({}, a, b);
+export const getFavoriteFilms = (films) => {
+  return films.filter((film) => film.is_favorite);
 };
 
 export const getGenresList = (films) => {
@@ -90,4 +87,37 @@ export const secondsToMinutes = (duration) => {
   const seconds = duration - minutes * 60;
 
   return `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
+};
+
+export const extend = (a, b) => {
+  return Object.assign({}, a, b);
+};
+
+export const adaptFilmToClient = (film) => {
+  const adaptedFilm = Object.assign(
+      {},
+      film,
+      {
+        posterImage: film.poster_image,
+        previewImage: film.preview_image,
+        backgroundImage: film.background_image,
+        backgroundColor: film.background_color,
+        videoLink: film.video_link,
+        previewVideoLink: film.preview_video_link,
+        scoresCount: film.scores_count,
+        runTime: film.run_time,
+        isFavorite: film.is_favorite
+      }
+  );
+  delete adaptedFilm.poster_image;
+  delete adaptedFilm.preview_image;
+  delete adaptedFilm.background_image;
+  delete adaptedFilm.background_color;
+  delete adaptedFilm.video_link;
+  delete adaptedFilm.preview_video_link;
+  delete adaptedFilm.scores_count;
+  delete adaptedFilm.run_time;
+  delete adaptedFilm.is_favorite;
+
+  return adaptedFilm;
 };

@@ -1,31 +1,32 @@
 import React, {Fragment} from "react";
 import {getLevel} from "../../utils";
-import FilmTypes from "../../types/types";
+import moviePageProp from "../../prop-types/movie-page.prop";
 
 const MovieOverview = (props) => {
   const {film} = props;
+  const {rating, scoresCount, description, director, starring} = film;
 
   return (
     <Fragment>
       <div className="movie-rating">
-        <div className="movie-rating__score">{film.overview.score}</div>
+        <div className="movie-rating__score">{rating}</div>
         <p className="movie-rating__meta">
-          <span className="movie-rating__level">{getLevel(parseInt(film.overview.score, 10))}</span>
-          <span className="movie-rating__count">{film.overview.ratings} ratings</span>
+          <span className="movie-rating__level">{getLevel(parseInt(rating, 10))}</span>
+          <span className="movie-rating__count">{scoresCount} ratings</span>
         </p>
       </div>
 
       <div className="movie-card__text">
-        {film.overview.description.split(/\n/).map((item, i) => <p key={i + 1}>{item}</p>)}
-        <p className="movie-card__director"><strong>Director: {film.overview.director}</strong></p>
-        <p className="movie-card__starring"><strong>Starring: {film.overview.starring}</strong></p>
+        <p>{description}</p>
+        <p className="movie-card__director"><strong>Director: {director}</strong></p>
+        <p className="movie-card__starring"><strong>Starring: {starring.join(`, `)}</strong></p>
       </div>
     </Fragment>
   );
 };
 
 MovieOverview.propTypes = {
-  film: FilmTypes.page.isRequired,
+  film: moviePageProp.isRequired,
 };
 
 export default MovieOverview;
