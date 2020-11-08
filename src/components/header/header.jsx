@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
+import Logo from "../logo/logo";
 import {redirectToRoute} from "../../store/actions/user-actions/user-actions";
 import {AppRoute, AuthorizationStatus} from "../../const";
 
@@ -10,20 +11,16 @@ const {AUTHORIZED} = AuthorizationStatus;
 
 const Header = (props) => {
 
-  const {isMain, isSignIn, classTitle, userStatus, userName, userAvatar, onAvatarClick, children} = props;
+  const {isMain, isSignIn, classTitle, children, userStatus, userName, userAvatar, onAvatarClick} = props;
 
   return (
     <header className={`page-header ${classTitle ? `${classTitle}` : ``}`}>
       <div className="logo">
         {isMain ? <a className="logo__link">
-          <span className="logo__letter logo__letter--1">W</span>
-          <span className="logo__letter logo__letter--2">T</span>
-          <span className="logo__letter logo__letter--3">W</span>
+          <Logo/>
         </a>
           : <Link to={ROOT} className="logo__link">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
+            <Logo/>
           </Link>}
       </div>
 
