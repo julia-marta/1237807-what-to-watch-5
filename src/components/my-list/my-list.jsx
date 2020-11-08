@@ -16,7 +16,7 @@ const MyList = (props) => {
   return (
     <div className="user-page">
 
-      <Header classTitle={`user-page__head`} isAuthorized={true}>
+      <Header classTitle={`user-page__head`}>
         <h1 className="page-title user-page__title">My list</h1>
       </Header>
 

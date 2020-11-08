@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {changeGenre, showMoreCards, resetCards} from "../../store/actions";
+import {changeGenre, showMoreCards, resetCards} from "../../store/actions/filter-actions/filter-actions";
 import MovieList from "../movie-list/movie-list";
 import GenresList from "../genres-list/genres-list";
 import ShowMoreButton from "../show-more-button/show-more-button";

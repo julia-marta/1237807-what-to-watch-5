@@ -1,4 +1,4 @@
-import {ActionType} from "../../actions";
+import {ActionType} from "../../../const";
 import {extend} from "../../../utils";
 
 const {LOAD_FILMS, LOAD_FILM, LOAD_PROMO_FILM, LOAD_REVIEWS} = ActionType;
