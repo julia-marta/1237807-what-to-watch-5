@@ -1,6 +1,5 @@
-import {ActionType} from "../../actions";
 import {extend} from "../../../utils";
-import {ALL_GENRES, FILM_CARDS_COUNT_TO_SHOW} from "../../../const";
+import {ALL_GENRES, FILM_CARDS_COUNT_TO_SHOW, ActionType} from "../../../const";
 
 const {CHANGE_GENRE, SHOW_MORE_CARDS, RESET_CARDS} = ActionType;
 

@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import Header from "../header/header";
+import Footer from "../footer/footer";
 import Tabs from "../tabs/tabs";
 import MovieOverview from "../movie-overview/movie-overview";
 import MovieDetails from "../movie-details/movie-details";
@@ -14,7 +15,6 @@ import {getSimilarFilms} from "../../store/selectors";
 import moviePageProp from "../../prop-types/movie-page.prop";
 import movieCardProp from "../../prop-types/movie-card.prop";
 import reviewProp from "../../prop-types/review.prop";
-
 import {Tab, AppRoute} from "../../const";
 
 const {OVERVIEW, DETAILS, REVIEWS} = Tab;
@@ -108,19 +108,8 @@ const MoviePage = (props) => {
         <MovieListWrapped films={relatedFilms} />
       </section>
 
-      <footer className="page-footer">
-        <div className="logo">
-          <Link to='/' className="logo__link logo__link--light">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </Link>
-        </div>
+      <Footer />
 
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
     </div>
   </React.Fragment>;
 };

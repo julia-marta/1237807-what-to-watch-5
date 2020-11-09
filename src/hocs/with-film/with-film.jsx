@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {fetchFilm} from "../../store/api-actions";
+import {fetchFilm} from "../../store/actions/api-actions/api-actions";
 import moviePageProp from "../../prop-types/movie-page.prop";
 
 const withFilm = (Component) => {

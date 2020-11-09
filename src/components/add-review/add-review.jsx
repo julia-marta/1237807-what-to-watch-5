@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import Header from "../header/header";
 import ReviewForm from "../review-form/review-form";
@@ -12,7 +11,7 @@ const {FILMS} = AppRoute;
 
 const AddReview = (props) => {
 
-  const {film, onAvatarClick} = props;
+  const {film} = props;
   const {id, name, backgroundImage, posterImage} = film;
 
   return (
@@ -24,7 +23,7 @@ const AddReview = (props) => {
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <Header onAvatarClick={onAvatarClick} isAuthorized={true}>
+        <Header>
 
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
@@ -54,7 +53,6 @@ const AddReview = (props) => {
 
 AddReview.propTypes = {
   film: moviePageProp.isRequired,
-  onAvatarClick: PropTypes.func.isRequired,
 };
 
 export default AddReview;

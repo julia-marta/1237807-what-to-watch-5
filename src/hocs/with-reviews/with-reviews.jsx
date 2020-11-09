@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {fetchReviews} from "../../store/api-actions";
+import {fetchReviews} from "../../store/actions/api-actions/api-actions";
 import reviewProp from "../../prop-types/review.prop";
 
 const withReviews = (Component) => {

@@ -1,26 +1,26 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 import {Link} from "react-router-dom";
-import {AppRoute} from "../../const";
+import Logo from "../logo/logo";
+import {redirectToRoute} from "../../store/actions/user-actions/user-actions";
+import {AppRoute, AuthorizationStatus} from "../../const";
 
-const {ROOT, LOGIN} = AppRoute;
+const {ROOT, LOGIN, MY_LIST} = AppRoute;
+const {AUTHORIZED} = AuthorizationStatus;
 
 const Header = (props) => {
 
-  const {isMain, isSignIn, classTitle, isAuthorized, onAvatarClick, children} = props;
+  const {isMain, isSignIn, classTitle, children, userStatus, userName, userAvatar, onAvatarClick} = props;
 
   return (
     <header className={`page-header ${classTitle ? `${classTitle}` : ``}`}>
       <div className="logo">
         {isMain ? <a className="logo__link">
-          <span className="logo__letter logo__letter--1">W</span>
-          <span className="logo__letter logo__letter--2">T</span>
-          <span className="logo__letter logo__letter--3">W</span>
+          <Logo/>
         </a>
           : <Link to={ROOT} className="logo__link">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
+            <Logo/>
           </Link>}
       </div>
 
@@ -29,9 +29,9 @@ const Header = (props) => {
       {isSignIn ? `` :
         <div className="user-block">
 
-          {isAuthorized ?
-            <div className="user-block__avatar" onClick={onAvatarClick}>
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+          {userStatus === AUTHORIZED ?
+            <div className="user-block__avatar" onClick={() => onAvatarClick(MY_LIST)}>
+              <img src={userAvatar} alt={userName} width="63" height="63" />
             </div>
 
             : <Link to={LOGIN} className="user-block__link">Sign in</Link>}
@@ -45,10 +45,25 @@ const Header = (props) => {
 Header.propTypes = {
   isMain: PropTypes.bool,
   isSignIn: PropTypes.bool,
-  isAuthorized: PropTypes.bool,
   classTitle: PropTypes.string,
-  onAvatarClick: PropTypes.func,
   children: PropTypes.element,
+  userStatus: PropTypes.string.isRequired,
+  userName: PropTypes.oneOfType([PropTypes.string.isRequired, () => null]),
+  userAvatar: PropTypes.oneOfType([PropTypes.string.isRequired, () => null]),
+  onAvatarClick: PropTypes.func.isRequired,
 };
 
-export default Header;
+const mapStateToProps = ({USER}) => ({
+  userStatus: USER.status,
+  userName: USER.name,
+  userAvatar: USER.avatar,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onAvatarClick(url) {
+    dispatch(redirectToRoute(url));
+  }
+});
+
+export {Header};
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

@@ -1,12 +1,8 @@
 import axios from "axios";
 import swal from 'sweetalert';
-
-const HttpCode = {
-  UNAUTHORIZED: 401,
-};
+import {HttpCode} from "../const";
 
 const {UNAUTHORIZED} = HttpCode;
-
 const BASE_URL = `https://5.react.pages.academy/wtw`;
 const REQUEST_TIMEOUT = 5000;
 

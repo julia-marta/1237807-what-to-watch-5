@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import Header from "../header/header";
+import Footer from "../footer/footer";
 import MovieList from "../movie-list/movie-list";
 import withActiveCard from "../../hocs/with-active-card/with-active-card";
 import {getAddedFilms} from "../../store/selectors";
@@ -16,7 +16,7 @@ const MyList = (props) => {
   return (
     <div className="user-page">
 
-      <Header classTitle={`user-page__head`} isAuthorized={true}>
+      <Header classTitle={`user-page__head`}>
         <h1 className="page-title user-page__title">My list</h1>
       </Header>
 
@@ -27,19 +27,8 @@ const MyList = (props) => {
 
       </section>
 
-      <footer className="page-footer">
-        <div className="logo">
-          <Link to='/' className="logo__link logo__link--light">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </Link>
-        </div>
+      <Footer />
 
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
     </div>
   );
 };
