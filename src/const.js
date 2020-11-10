@@ -1,6 +1,11 @@
 export const ALL_GENRES = `All genres`;
 export const FILM_CARDS_COUNT_TO_SHOW = 8;
 
+export const ReviewLength = {
+  MIN: 50,
+  MAX: 400,
+};
+
 export const TABS = [`Overview`, `Details`, `Reviews`];
 
 export const Tab = {
@@ -37,6 +42,7 @@ export const ActionType = {
   REQUIRE_AUTHORIZATION: `REQUIRE_AUTHORIZATION`,
   SAVE_AUTHORIZATION_INFO: `SAVE_AUTHORIZATION_INFO`,
   REDIRECT_TO_ROUTE: `REDIRECT_TO_ROUTE`,
+  SET_REVIEW_STATUS: `SET_REVIEW_STATUS`,
 };
 
 export const AuthorizationStatus = {
@@ -47,4 +53,9 @@ export const AuthorizationStatus = {
 export const HttpCode = {
   SUCCESS: 200,
   UNAUTHORIZED: 401
+};
+
+export const ReviewStatus = {
+  SAVING: `SAVING`,
+  NOT_SAVING: `NOT_SAVING`,
 };

@@ -1,6 +1,6 @@
 import {ActionType} from "../../../const";
 
-const {REQUIRE_AUTHORIZATION, SAVE_AUTHORIZATION_INFO, REDIRECT_TO_ROUTE} = ActionType;
+const {REQUIRE_AUTHORIZATION, SAVE_AUTHORIZATION_INFO, REDIRECT_TO_ROUTE, SET_REVIEW_STATUS} = ActionType;
 
 export const requireAuthorization = (status) => ({
   type: REQUIRE_AUTHORIZATION,
@@ -15,4 +15,9 @@ export const saveAuthorizationInfo = (data) => ({
 export const redirectToRoute = (url) => ({
   type: REDIRECT_TO_ROUTE,
   payload: url,
+});
+
+export const setReviewStatus = (status) => ({
+  type: SET_REVIEW_STATUS,
+  payload: status,
 });
