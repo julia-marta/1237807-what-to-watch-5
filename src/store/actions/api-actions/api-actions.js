@@ -3,7 +3,7 @@ import {loadFilms, loadFilm, loadPromoFilm, loadReviews} from "../data-actions/d
 import {requireAuthorization, saveAuthorizationInfo, redirectToRoute, setReviewStatus} from "../user-actions/user-actions";
 import {APIRoute, AppRoute, HttpCode, AuthorizationStatus, ReviewStatus} from "../../../const";
 
-const {FILMS, PROMO, COMMENTS, LOGIN} = APIRoute;
+const {FILMS, PROMO, COMMENTS, LOGIN, FAVORITE} = APIRoute;
 const {ROOT} = AppRoute;
 const {SUCCESS, UNAUTHORIZED} = HttpCode;
 const {AUTHORIZED, NOT_AUTHORIZED} = AuthorizationStatus;
@@ -78,6 +78,16 @@ export const addReview = (id, {rating, text}) => (dispatch, _getState, api) => (
     .then(() => dispatch(redirectToRoute(`${AppRoute.FILMS}/${id}`)))
     .catch((error) => {
       dispatch(setReviewStatus(NOT_SAVING));
+      swal(`Error`, `Something went wrong!`, `error`);
+      throw error;
+    })
+);
+
+export const addToFavorites = (id, status) => (dispatch, _getState, api) => (
+  api.post(`${FAVORITE}/${id}/${status}`)
+    .then(() => dispatch(fetchFilms()))
+    .then(() => dispatch(fetchPromoFilm()))
+    .catch((error) => {
       swal(`Error`, `Something went wrong!`, `error`);
       throw error;
     })

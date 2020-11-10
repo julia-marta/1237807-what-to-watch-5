@@ -4,11 +4,12 @@ import {connect} from "react-redux";
 import Header from "../header/header";
 import Footer from "../footer/footer";
 import Catalog from "../catalog/catalog";
+import {addToFavorites} from "../../store/actions/api-actions/api-actions";
 import promoFilmProp from "../../prop-types/promo-film.prop";
 
 const Main = (props) => {
-  const {promoFilm, onPlayClick} = props;
-  const {id, name, posterImage, backgroundImage, genre, released} = promoFilm;
+  const {promoFilm, onPlayClick, addToMyList} = props;
+  const {id, name, posterImage, backgroundImage, genre, released, isFavorite} = promoFilm;
 
   return <React.Fragment>
     <section className="movie-card">
@@ -40,10 +41,16 @@ const Main = (props) => {
                 </svg>
                 <span>Play</span>
               </button>
-              <button className="btn btn--list movie-card__button" type="button">
-                <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref="#add"></use>
-                </svg>
+              <button className="btn btn--list movie-card__button" type="button" onClick={() => addToMyList(id, Number(!isFavorite))}>
+                {isFavorite ?
+                  <svg viewBox="0 0 18 14" width="18" height="14">
+                    <use xlinkHref="#in-list"></use>
+                  </svg>
+                  :
+                  <svg viewBox="0 0 19 20" width="19" height="20">
+                    <use xlinkHref="#add"></use>
+                  </svg>
+                }
                 <span>My list</span>
               </button>
             </div>
@@ -63,11 +70,18 @@ const Main = (props) => {
 Main.propTypes = {
   promoFilm: promoFilmProp.isRequired,
   onPlayClick: PropTypes.func.isRequired,
+  addToMyList: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({DATA}) => ({
   promoFilm: DATA.promo,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  addToMyList(id, status) {
+    dispatch(addToFavorites(id, status));
+  },
+});
+
 export {Main};
-export default connect(mapStateToProps)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

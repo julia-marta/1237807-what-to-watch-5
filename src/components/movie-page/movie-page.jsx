@@ -26,7 +26,7 @@ const MovieListWrapped = withActiveCard(MovieList);
 
 const MoviePage = (props) => {
 
-  const {film, reviews, relatedFilms, userStatus, onPlayClick} = props;
+  const {film, reviews, relatedFilms, userStatus, onPlayClick, onMyListClick} = props;
   const {id, name, posterImage, backgroundImage, genre, released, isFavorite} = film;
 
   return <React.Fragment>
@@ -56,7 +56,7 @@ const MoviePage = (props) => {
                 </svg>
                 <span>Play</span>
               </button>
-              <button className="btn btn--list movie-card__button" type="button">
+              <button className="btn btn--list movie-card__button" type="button" onClick={() => onMyListClick(Number(!isFavorite))}>
                 {isFavorite ?
                   <svg viewBox="0 0 18 14" width="18" height="14">
                     <use xlinkHref="#in-list"></use>
@@ -123,6 +123,7 @@ MoviePage.propTypes = {
   film: moviePageProp.isRequired,
   reviews: PropTypes.arrayOf(reviewProp).isRequired,
   onPlayClick: PropTypes.func.isRequired,
+  onMyListClick: PropTypes.func.isRequired,
   relatedFilms: PropTypes.arrayOf(movieCardProp).isRequired,
   userStatus: PropTypes.string.isRequired,
 };
