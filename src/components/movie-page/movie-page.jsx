@@ -11,21 +11,22 @@ import MovieReviews from "../movie-reviews/movie-reviews";
 import MovieList from "../movie-list/movie-list";
 import withActiveTab from "../../hocs/with-active-tab/with-active-tab";
 import withActiveCard from "../../hocs/with-active-card/with-active-card";
-import {getSimilarFilms} from "../../store/selectors";
+import {getSimilarFilms, getUserStatus} from "../../store/selectors";
 import moviePageProp from "../../prop-types/movie-page.prop";
 import movieCardProp from "../../prop-types/movie-card.prop";
 import reviewProp from "../../prop-types/review.prop";
-import {Tab, AppRoute} from "../../const";
+import {Tab, AppRoute, AuthorizationStatus} from "../../const";
 
 const {OVERVIEW, DETAILS, REVIEWS} = Tab;
 const {FILMS, REVIEW} = AppRoute;
+const {AUTHORIZED} = AuthorizationStatus;
 
 const TabsWrapped = withActiveTab(Tabs);
 const MovieListWrapped = withActiveCard(MovieList);
 
 const MoviePage = (props) => {
 
-  const {film, reviews, relatedFilms, onPlayClick} = props;
+  const {film, reviews, relatedFilms, userStatus, onPlayClick, onMyListClick} = props;
   const {id, name, posterImage, backgroundImage, genre, released, isFavorite} = film;
 
   return <React.Fragment>
@@ -55,7 +56,7 @@ const MoviePage = (props) => {
                 </svg>
                 <span>Play</span>
               </button>
-              <button className="btn btn--list movie-card__button" type="button">
+              <button className="btn btn--list movie-card__button" type="button" onClick={() => onMyListClick(Number(!isFavorite))}>
                 {isFavorite ?
                   <svg viewBox="0 0 18 14" width="18" height="14">
                     <use xlinkHref="#in-list"></use>
@@ -68,7 +69,10 @@ const MoviePage = (props) => {
                 <span>My list</span>
               </button>
 
-              <Link to={`${FILMS}/${id}${REVIEW}`} className="btn movie-card__button">Add review</Link>
+              {userStatus === AUTHORIZED ?
+                <Link to={`${FILMS}/${id}${REVIEW}`} className="btn movie-card__button">Add review</Link>
+                : ``}
+
             </div>
           </div>
         </div>
@@ -119,11 +123,14 @@ MoviePage.propTypes = {
   film: moviePageProp.isRequired,
   reviews: PropTypes.arrayOf(reviewProp).isRequired,
   onPlayClick: PropTypes.func.isRequired,
+  onMyListClick: PropTypes.func.isRequired,
   relatedFilms: PropTypes.arrayOf(movieCardProp).isRequired,
+  userStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state, props) => ({
   relatedFilms: getSimilarFilms(state, props),
+  userStatus: getUserStatus(state),
 });
 
 export {MoviePage};

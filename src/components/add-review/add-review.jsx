@@ -2,11 +2,11 @@ import React from "react";
 import {Link} from "react-router-dom";
 import Header from "../header/header";
 import ReviewForm from "../review-form/review-form";
-import withRating from "../../hocs/with-rating/with-rating";
+import withNewReview from "../../hocs/with-new-review/with-new-review";
 import moviePageProp from "../../prop-types/movie-page.prop";
 import {AppRoute} from "../../const";
 
-const ReviewFormWrapped = withRating(ReviewForm);
+const ReviewFormWrapped = withNewReview(ReviewForm);
 const {FILMS} = AppRoute;
 
 const AddReview = (props) => {
@@ -44,7 +44,7 @@ const AddReview = (props) => {
       </div>
 
       <div className="add-review">
-        <ReviewFormWrapped />
+        <ReviewFormWrapped id={id} />
       </div>
 
     </section>

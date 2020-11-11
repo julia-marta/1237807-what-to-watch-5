@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {fetchFilm} from "../../store/actions/api-actions/api-actions";
+import {fetchFilm, addToFavorites} from "../../store/actions/api-actions/api-actions";
 import moviePageProp from "../../prop-types/movie-page.prop";
 
 const withFilm = (Component) => {
@@ -13,6 +13,7 @@ const withFilm = (Component) => {
         film: null,
         isLoading: true,
       };
+      this._handleMyListButton = this._handleMyListButton.bind(this);
     }
 
     componentDidMount() {
@@ -34,10 +35,17 @@ const withFilm = (Component) => {
       }
     }
 
+    _handleMyListButton(status) {
+      const {id, addToMyList, getFilm} = this.props;
+
+      addToMyList(id, status);
+      getFilm(id);
+    }
+
     render() {
       const {film, isLoading} = this.state;
 
-      return isLoading ? `` : <Component {...this.props} film={film} />;
+      return isLoading ? `` : <Component {...this.props} film={film} onMyListClick={this._handleMyListButton} />;
     }
   }
 
@@ -45,6 +53,7 @@ const withFilm = (Component) => {
     id: PropTypes.string.isRequired,
     currentFilm: PropTypes.oneOfType([moviePageProp.isRequired, () => null]),
     getFilm: PropTypes.func.isRequired,
+    addToMyList: PropTypes.func.isRequired,
   };
 
   const mapStateToProps = ({DATA}) => ({
@@ -54,6 +63,9 @@ const withFilm = (Component) => {
   const mapDispatchToProps = (dispatch) => ({
     getFilm(id) {
       dispatch(fetchFilm(id));
+    },
+    addToMyList(id, status) {
+      dispatch(addToFavorites(id, status));
     },
   });
 

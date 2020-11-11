@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const {shape, number, string} = PropTypes;
+const {shape, number, string, bool} = PropTypes;
 
 export default shape({
   id: number.isRequired,
@@ -10,4 +10,5 @@ export default shape({
   backgroundColor: string.isRequired,
   genre: string.isRequired,
   released: number.isRequired,
+  isFavorite: bool.isRequired,
 });

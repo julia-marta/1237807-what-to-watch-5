@@ -13,6 +13,10 @@ export const getCardsCount = (state) => {
   return state.FILTER.cardsCount;
 };
 
+export const getUserStatus = (state) => {
+  return state.USER.status;
+};
+
 export const getCurrentFilmID = (_, props) => {
   return Number(props.id);
 };

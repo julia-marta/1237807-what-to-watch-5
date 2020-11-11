@@ -66,7 +66,7 @@ export const getRelatedFilms = (films, currentFilm) => {
 };
 
 export const getFavoriteFilms = (films) => {
-  return films.filter((film) => film.is_favorite);
+  return films.filter((film) => film.isFavorite);
 };
 
 export const getGenresList = (films) => {
