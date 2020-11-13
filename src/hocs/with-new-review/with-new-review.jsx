@@ -9,8 +9,8 @@ const {MIN, MAX} = ReviewLength;
 const {SAVING} = ReviewStatus;
 const DEFAULT_RATING = `3`;
 
-const withRating = (Component) => {
-  class WithRating extends PureComponent {
+const withNewReview = (Component) => {
+  class WithNewReview extends PureComponent {
     constructor(props) {
       super(props);
 
@@ -56,7 +56,7 @@ const withRating = (Component) => {
     }
   }
 
-  WithRating.propTypes = {
+  WithNewReview.propTypes = {
     id: PropTypes.number.isRequired,
     reviewStatus: PropTypes.string.isRequired,
     addReviewAction: PropTypes.func.isRequired,
@@ -76,8 +76,8 @@ const withRating = (Component) => {
     },
   });
 
-  return connect(mapStateToProps, mapDispatchToProps)(WithRating);
+  return connect(mapStateToProps, mapDispatchToProps)(WithNewReview);
 };
 
-export {withRating};
-export default withRating;
+export {withNewReview};
+export default withNewReview;

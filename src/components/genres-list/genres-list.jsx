@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import GenresListItem from "../genres-list-item/genres-list-item";
 
+const MemoGenresListItem = React.memo(GenresListItem);
+
 const GenresList = (props) => {
 
   const {genres, activeGenre, onGenreClick, resetCards} = props;
@@ -10,7 +12,7 @@ const GenresList = (props) => {
     <ul className="catalog__genres-list">
 
       {genres.map((genre, i) => (
-        <GenresListItem key ={i + genre} genre={genre} isActive={genre === activeGenre}
+        <MemoGenresListItem key ={i + genre} genre={genre} isActive={genre === activeGenre}
           onGenreClick={onGenreClick} resetCards={resetCards}/>
       ))}
 
