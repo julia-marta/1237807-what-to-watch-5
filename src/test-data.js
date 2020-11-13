@@ -1,3 +1,5 @@
+import React from 'react';
+import PropTypes from "prop-types";
 export const noop = () => {};
 
 export const promoFilm = {
@@ -66,6 +68,7 @@ export const defaultState = {
   DATA: {
     films: [filmCard, filmCard, filmCard, filmCard, filmCard, filmCard, filmCard],
     promo: promoFilm,
+    currentFilm: film,
   },
   FILTER: {
     genre: `Drama`,
@@ -77,7 +80,23 @@ export const defaultState = {
     avatar: `avatar.jpg`,
     reviewStatus: `NOT_SAVING`,
   },
-  addToMyList: noop,
-  addReviewAction: noop,
-  setReviewStatusAction: noop,
 };
+
+export const MockComponent = (props) => {
+  const {children} = props;
+
+  return (
+    <div>
+      {children}
+    </div>
+  );
+};
+
+MockComponent.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired,
+};
+
+export const SimpleMockComponent = () => <div />;

@@ -79,5 +79,4 @@ const withNewReview = (Component) => {
   return connect(mapStateToProps, mapDispatchToProps)(WithNewReview);
 };
 
-export {withNewReview};
 export default withNewReview;
