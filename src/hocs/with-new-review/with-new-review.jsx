@@ -37,9 +37,7 @@ const withNewReview = (Component) => {
       this.setState({[name]: value});
     }
 
-    _handleSubmit(evt) {
-      evt.preventDefault();
-
+    _handleSubmit() {
       const {id, addReviewAction, setReviewStatusAction} = this.props;
       const {rating, text} = this.state;
       setReviewStatusAction(SAVING);
