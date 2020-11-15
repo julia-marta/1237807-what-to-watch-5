@@ -69,6 +69,7 @@ export const defaultState = {
     films: [filmCard, filmCard, filmCard, filmCard, filmCard, filmCard, filmCard],
     promo: promoFilm,
     currentFilm: film,
+    currentReviews: reviews,
   },
   FILTER: {
     genre: `Drama`,

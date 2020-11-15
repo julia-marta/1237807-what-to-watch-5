@@ -4,7 +4,17 @@ import Adapter from "enzyme-adapter-react-16";
 import {BrowserRouter} from 'react-router-dom';
 import {SignIn} from "./sign-in";
 
-jest.mock(`../header/Header`, () => `header`);
+jest.mock(`../header/Header`, () => {
+
+  const header = () => {
+    return <h1 className="page-title user-page__title">Sign in</h1>;
+  };
+
+  return {
+    __esModule: true,
+    default: header,
+  };
+});
 
 configure({adapter: new Adapter()});
 
