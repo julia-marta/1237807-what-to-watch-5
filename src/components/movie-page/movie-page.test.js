@@ -8,7 +8,7 @@ import {AuthorizationStatus} from "../../const";
 const {AUTHORIZED, NOT_AUTHORIZED} = AuthorizationStatus;
 const mockRelatedFilms = defaultState.DATA.films;
 
-jest.mock(`../header/Header`, () => `Header`);
+jest.mock(`../header/header.jsx`, () => `Header`);
 
 describe(`should MoviePage render correctly`, () => {
   it(`with add review button when user is authorized`, () => {

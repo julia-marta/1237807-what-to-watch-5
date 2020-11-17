@@ -4,7 +4,7 @@ import {BrowserRouter} from 'react-router-dom';
 import {SignIn} from "./sign-in";
 import {noop} from "../../test-data";
 
-jest.mock(`../header/Header`, () => `Header`);
+jest.mock(`../header/header.jsx`, () => `Header`);
 
 it(`should SignIn render correctly`, () => {
   const tree = renderer

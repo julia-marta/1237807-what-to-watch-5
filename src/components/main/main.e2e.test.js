@@ -4,8 +4,8 @@ import Adapter from "enzyme-adapter-react-16";
 import {Main} from "./main";
 import {noop, promoFilm} from "../../test-data";
 
-jest.mock(`../header/Header`, () => `Header`);
-jest.mock(`../catalog/Catalog`, () => `Catalog`);
+jest.mock(`../header/header.jsx`, () => `Header`);
+jest.mock(`../catalog/catalog.jsx`, () => `Catalog`);
 
 configure({adapter: new Adapter()});
 

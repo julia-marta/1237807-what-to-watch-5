@@ -3,8 +3,8 @@ import renderer from "react-test-renderer";
 import {Main} from "./main";
 import {noop, promoFilm} from "../../test-data";
 
-jest.mock(`../header/Header`, () => `Header`);
-jest.mock(`../catalog/Catalog`, () => `Catalog`);
+jest.mock(`../header/header.jsx`, () => `Header`);
+jest.mock(`../catalog/catalog.jsx`, () => `Catalog`);
 
 it(`should Main render correctly`, () => {
   const tree = renderer
