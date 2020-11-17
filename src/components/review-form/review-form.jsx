@@ -9,14 +9,17 @@ const ReviewForm = (props) => {
   const {currentRating, currentText, isReviewValid, isReviewSaving, onFieldChange, onSubmit} = props;
 
   return (
-    <form action="#" className="add-review__form" onSubmit={(event) => onSubmit(event)}>
+    <form action="#" className="add-review__form" onSubmit={(evt) => {
+      evt.preventDefault();
+      onSubmit();
+    }}>
       <div className="rating">
         <div className="rating__stars">
 
           {RATINGS.map((rating, i) => (
             <React.Fragment key={i + rating}>
               <input className="rating__input" id={`star-${rating}`} type="radio" name="rating" value={rating}
-                checked={currentRating === rating} disabled={isReviewSaving} onChange={() => onFieldChange(event.target)}/>
+                checked={currentRating === rating} disabled={isReviewSaving} onChange={(event) => onFieldChange(event.target)}/>
               <label className="rating__label" htmlFor={`star-${rating}`}>Rating {rating}</label>
             </React.Fragment>
           ))}
@@ -27,7 +30,7 @@ const ReviewForm = (props) => {
       <div className="add-review__text">
         <textarea className="add-review__textarea" name="text" id="review-text" value={currentText}
           minLength={MIN} maxLength={MAX} placeholder="Review text"
-          disabled={isReviewSaving} onChange={() => onFieldChange(event.target)} />
+          disabled={isReviewSaving} onChange={(event) => onFieldChange(event.target)} />
         <div className="add-review__submit">
           <button className="add-review__btn" type="submit" disabled={!isReviewValid || isReviewSaving}>Post</button>
         </div>

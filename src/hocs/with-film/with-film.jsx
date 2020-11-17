@@ -10,7 +10,6 @@ const withFilm = (Component) => {
       super(props);
 
       this.state = {
-        film: null,
         isLoading: true,
       };
       this._handleMyListButton = this._handleMyListButton.bind(this);
@@ -27,7 +26,7 @@ const withFilm = (Component) => {
       const {id, currentFilm, getFilm} = this.props;
 
       if (prevFilm !== currentFilm) {
-        this.setState({film: currentFilm, isLoading: false});
+        this.setState({isLoading: false});
       }
 
       if (id !== prevId) {
@@ -43,9 +42,10 @@ const withFilm = (Component) => {
     }
 
     render() {
-      const {film, isLoading} = this.state;
+      const {isLoading} = this.state;
+      const {currentFilm} = this.props;
 
-      return isLoading ? `` : <Component {...this.props} film={film} onMyListClick={this._handleMyListButton} />;
+      return isLoading ? `` : <Component {...this.props} film={currentFilm} onMyListClick={this._handleMyListButton} />;
     }
   }
 
@@ -72,5 +72,4 @@ const withFilm = (Component) => {
   return connect(mapStateToProps, mapDispatchToProps)(WithFilm);
 };
 
-export {withFilm};
 export default withFilm;

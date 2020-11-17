@@ -1,0 +1,591 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should Catalog render correctly with ShowMoreButton 1`] = `
+<section
+  className="catalog"
+>
+  <h2
+    className="catalog__title visually-hidden"
+  >
+    Catalog
+  </h2>
+  <ul
+    className="catalog__genres-list"
+  >
+    <li
+      className="catalog__genres-item catalog__genres-item--active"
+    >
+      <a
+        className="catalog__genres-link"
+        onClick={[Function]}
+      >
+        All genres
+      </a>
+    </li>
+    <li
+      className="catalog__genres-item "
+    >
+      <a
+        className="catalog__genres-link"
+        onClick={[Function]}
+      >
+        Drama
+      </a>
+    </li>
+    <li
+      className="catalog__genres-item "
+    >
+      <a
+        className="catalog__genres-link"
+        onClick={[Function]}
+      >
+        Music
+      </a>
+    </li>
+    <li
+      className="catalog__genres-item "
+    >
+      <a
+        className="catalog__genres-link"
+        onClick={[Function]}
+      >
+        Biography
+      </a>
+    </li>
+    <li
+      className="catalog__genres-item "
+    >
+      <a
+        className="catalog__genres-link"
+        onClick={[Function]}
+      >
+        Survival
+      </a>
+    </li>
+    <li
+      className="catalog__genres-item "
+    >
+      <a
+        className="catalog__genres-link"
+        onClick={[Function]}
+      >
+        Thriller
+      </a>
+    </li>
+    <li
+      className="catalog__genres-item "
+    >
+      <a
+        className="catalog__genres-link"
+        onClick={[Function]}
+      >
+        Crime
+      </a>
+    </li>
+  </ul>
+  <div
+    className="catalog__movies-list"
+  >
+    <article
+      className="small-movie-card catalog__movies-card"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <div
+        className="small-movie-card__image"
+        onClick={[Function]}
+      >
+        <img
+          alt="The Grand Budapest Hotel"
+          height="175"
+          src="the-grand-budapest-hotel.jpg"
+          width="280"
+        />
+      </div>
+      <h3
+        className="small-movie-card__title"
+      >
+        <a
+          className="small-movie-card__link"
+          href="/films/1"
+          onClick={[Function]}
+        >
+          The Grand Budapest Hotel
+        </a>
+      </h3>
+    </article>
+    <article
+      className="small-movie-card catalog__movies-card"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <div
+        className="small-movie-card__image"
+        onClick={[Function]}
+      >
+        <img
+          alt="The Grand Budapest Hotel"
+          height="175"
+          src="the-grand-budapest-hotel.jpg"
+          width="280"
+        />
+      </div>
+      <h3
+        className="small-movie-card__title"
+      >
+        <a
+          className="small-movie-card__link"
+          href="/films/1"
+          onClick={[Function]}
+        >
+          The Grand Budapest Hotel
+        </a>
+      </h3>
+    </article>
+    <article
+      className="small-movie-card catalog__movies-card"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <div
+        className="small-movie-card__image"
+        onClick={[Function]}
+      >
+        <img
+          alt="The Grand Budapest Hotel"
+          height="175"
+          src="the-grand-budapest-hotel.jpg"
+          width="280"
+        />
+      </div>
+      <h3
+        className="small-movie-card__title"
+      >
+        <a
+          className="small-movie-card__link"
+          href="/films/1"
+          onClick={[Function]}
+        >
+          The Grand Budapest Hotel
+        </a>
+      </h3>
+    </article>
+    <article
+      className="small-movie-card catalog__movies-card"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <div
+        className="small-movie-card__image"
+        onClick={[Function]}
+      >
+        <img
+          alt="The Grand Budapest Hotel"
+          height="175"
+          src="the-grand-budapest-hotel.jpg"
+          width="280"
+        />
+      </div>
+      <h3
+        className="small-movie-card__title"
+      >
+        <a
+          className="small-movie-card__link"
+          href="/films/1"
+          onClick={[Function]}
+        >
+          The Grand Budapest Hotel
+        </a>
+      </h3>
+    </article>
+  </div>
+  <div
+    className="catalog__more"
+  >
+    <button
+      className="catalog__button"
+      onClick={[Function]}
+      type="button"
+    >
+      Show more
+    </button>
+  </div>
+</section>
+`;
+
+exports[`should Catalog render correctly without ShowMoreButton 1`] = `
+<section
+  className="catalog"
+>
+  <h2
+    className="catalog__title visually-hidden"
+  >
+    Catalog
+  </h2>
+  <ul
+    className="catalog__genres-list"
+  >
+    <li
+      className="catalog__genres-item catalog__genres-item--active"
+    >
+      <a
+        className="catalog__genres-link"
+        onClick={[Function]}
+      >
+        All genres
+      </a>
+    </li>
+    <li
+      className="catalog__genres-item "
+    >
+      <a
+        className="catalog__genres-link"
+        onClick={[Function]}
+      >
+        Drama
+      </a>
+    </li>
+    <li
+      className="catalog__genres-item "
+    >
+      <a
+        className="catalog__genres-link"
+        onClick={[Function]}
+      >
+        Music
+      </a>
+    </li>
+    <li
+      className="catalog__genres-item "
+    >
+      <a
+        className="catalog__genres-link"
+        onClick={[Function]}
+      >
+        Biography
+      </a>
+    </li>
+    <li
+      className="catalog__genres-item "
+    >
+      <a
+        className="catalog__genres-link"
+        onClick={[Function]}
+      >
+        Survival
+      </a>
+    </li>
+    <li
+      className="catalog__genres-item "
+    >
+      <a
+        className="catalog__genres-link"
+        onClick={[Function]}
+      >
+        Thriller
+      </a>
+    </li>
+    <li
+      className="catalog__genres-item "
+    >
+      <a
+        className="catalog__genres-link"
+        onClick={[Function]}
+      >
+        Crime
+      </a>
+    </li>
+  </ul>
+  <div
+    className="catalog__movies-list"
+  >
+    <article
+      className="small-movie-card catalog__movies-card"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <div
+        className="small-movie-card__image"
+        onClick={[Function]}
+      >
+        <img
+          alt="The Grand Budapest Hotel"
+          height="175"
+          src="the-grand-budapest-hotel.jpg"
+          width="280"
+        />
+      </div>
+      <h3
+        className="small-movie-card__title"
+      >
+        <a
+          className="small-movie-card__link"
+          href="/films/1"
+          onClick={[Function]}
+        >
+          The Grand Budapest Hotel
+        </a>
+      </h3>
+    </article>
+    <article
+      className="small-movie-card catalog__movies-card"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <div
+        className="small-movie-card__image"
+        onClick={[Function]}
+      >
+        <img
+          alt="The Grand Budapest Hotel"
+          height="175"
+          src="the-grand-budapest-hotel.jpg"
+          width="280"
+        />
+      </div>
+      <h3
+        className="small-movie-card__title"
+      >
+        <a
+          className="small-movie-card__link"
+          href="/films/1"
+          onClick={[Function]}
+        >
+          The Grand Budapest Hotel
+        </a>
+      </h3>
+    </article>
+    <article
+      className="small-movie-card catalog__movies-card"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <div
+        className="small-movie-card__image"
+        onClick={[Function]}
+      >
+        <img
+          alt="The Grand Budapest Hotel"
+          height="175"
+          src="the-grand-budapest-hotel.jpg"
+          width="280"
+        />
+      </div>
+      <h3
+        className="small-movie-card__title"
+      >
+        <a
+          className="small-movie-card__link"
+          href="/films/1"
+          onClick={[Function]}
+        >
+          The Grand Budapest Hotel
+        </a>
+      </h3>
+    </article>
+    <article
+      className="small-movie-card catalog__movies-card"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <div
+        className="small-movie-card__image"
+        onClick={[Function]}
+      >
+        <img
+          alt="The Grand Budapest Hotel"
+          height="175"
+          src="the-grand-budapest-hotel.jpg"
+          width="280"
+        />
+      </div>
+      <h3
+        className="small-movie-card__title"
+      >
+        <a
+          className="small-movie-card__link"
+          href="/films/1"
+          onClick={[Function]}
+        >
+          The Grand Budapest Hotel
+        </a>
+      </h3>
+    </article>
+    <article
+      className="small-movie-card catalog__movies-card"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <div
+        className="small-movie-card__image"
+        onClick={[Function]}
+      >
+        <img
+          alt="The Grand Budapest Hotel"
+          height="175"
+          src="the-grand-budapest-hotel.jpg"
+          width="280"
+        />
+      </div>
+      <h3
+        className="small-movie-card__title"
+      >
+        <a
+          className="small-movie-card__link"
+          href="/films/1"
+          onClick={[Function]}
+        >
+          The Grand Budapest Hotel
+        </a>
+      </h3>
+    </article>
+    <article
+      className="small-movie-card catalog__movies-card"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <div
+        className="small-movie-card__image"
+        onClick={[Function]}
+      >
+        <img
+          alt="The Grand Budapest Hotel"
+          height="175"
+          src="the-grand-budapest-hotel.jpg"
+          width="280"
+        />
+      </div>
+      <h3
+        className="small-movie-card__title"
+      >
+        <a
+          className="small-movie-card__link"
+          href="/films/1"
+          onClick={[Function]}
+        >
+          The Grand Budapest Hotel
+        </a>
+      </h3>
+    </article>
+    <article
+      className="small-movie-card catalog__movies-card"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <div
+        className="small-movie-card__image"
+        onClick={[Function]}
+      >
+        <img
+          alt="The Grand Budapest Hotel"
+          height="175"
+          src="the-grand-budapest-hotel.jpg"
+          width="280"
+        />
+      </div>
+      <h3
+        className="small-movie-card__title"
+      >
+        <a
+          className="small-movie-card__link"
+          href="/films/1"
+          onClick={[Function]}
+        >
+          The Grand Budapest Hotel
+        </a>
+      </h3>
+    </article>
+  </div>
+  
+</section>
+`;
+
+exports[`should Catalog render correctly without filtered films for active genre 1`] = `
+<section
+  className="catalog"
+>
+  <h2
+    className="catalog__title visually-hidden"
+  >
+    Catalog
+  </h2>
+  <ul
+    className="catalog__genres-list"
+  >
+    <li
+      className="catalog__genres-item "
+    >
+      <a
+        className="catalog__genres-link"
+        onClick={[Function]}
+      >
+        All genres
+      </a>
+    </li>
+    <li
+      className="catalog__genres-item "
+    >
+      <a
+        className="catalog__genres-link"
+        onClick={[Function]}
+      >
+        Drama
+      </a>
+    </li>
+    <li
+      className="catalog__genres-item catalog__genres-item--active"
+    >
+      <a
+        className="catalog__genres-link"
+        onClick={[Function]}
+      >
+        Music
+      </a>
+    </li>
+    <li
+      className="catalog__genres-item "
+    >
+      <a
+        className="catalog__genres-link"
+        onClick={[Function]}
+      >
+        Biography
+      </a>
+    </li>
+    <li
+      className="catalog__genres-item "
+    >
+      <a
+        className="catalog__genres-link"
+        onClick={[Function]}
+      >
+        Survival
+      </a>
+    </li>
+    <li
+      className="catalog__genres-item "
+    >
+      <a
+        className="catalog__genres-link"
+        onClick={[Function]}
+      >
+        Thriller
+      </a>
+    </li>
+    <li
+      className="catalog__genres-item "
+    >
+      <a
+        className="catalog__genres-link"
+        onClick={[Function]}
+      >
+        Crime
+      </a>
+    </li>
+  </ul>
+  <div
+    className="catalog__movies-list"
+  />
+  
+</section>
+`;

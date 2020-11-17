@@ -10,7 +10,6 @@ const withReviews = (Component) => {
       super(props);
 
       this.state = {
-        reviews: null,
         isLoading: true,
       };
     }
@@ -27,7 +26,7 @@ const withReviews = (Component) => {
       const {id, currentReviews, getReviews} = this.props;
 
       if (prevReviews !== currentReviews) {
-        this.setState({reviews: currentReviews, isLoading: false});
+        this.setState({isLoading: false});
       }
 
       if (id !== prevId) {
@@ -36,9 +35,10 @@ const withReviews = (Component) => {
     }
 
     render() {
-      const {reviews, isLoading} = this.state;
+      const {isLoading} = this.state;
+      const {currentReviews} = this.props;
 
-      return isLoading ? `` : <Component {...this.props} reviews={reviews} />;
+      return isLoading ? `` : <Component {...this.props} reviews={currentReviews} />;
     }
   }
 

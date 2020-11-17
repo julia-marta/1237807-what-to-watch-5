@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should VideoPlayer render correctly 1`] = `
+<video
+  autoPlay={true}
+  height={175}
+  muted={true}
+  poster="the-grand-budapest-hotel.jpg"
+  src="https://trailers.apple.com/movies/universal/krampus/krampus-tlr1_h480p.mov"
+  width={280}
+/>
+`;

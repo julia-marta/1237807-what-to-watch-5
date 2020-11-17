@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {useHistory, Link} from "react-router-dom";
+import {Link} from "react-router-dom";
 import VideoPlayer from "../video-player/video-player";
+import browserHistory from "../../browser-history";
 import movieCardProp from "../../prop-types/movie-card.prop";
 import {AppRoute} from "../../const";
 
@@ -10,7 +11,7 @@ const {FILMS} = AppRoute;
 const MovieCard = (props) => {
   const {film, onMovieCardOver, onMovieCardOut, isVideoPlaying} = props;
   const {id, name, previewImage, previewVideoLink} = film;
-  const history = useHistory();
+  const history = browserHistory;
 
   return (
     <article className="small-movie-card catalog__movies-card"

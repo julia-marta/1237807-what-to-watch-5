@@ -1,0 +1,169 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should Header render correctly on Main Page 1`] = `
+<header
+  className="page-header "
+>
+  <div
+    className="logo"
+  >
+    <a
+      className="logo__link"
+    >
+      <span
+        className="logo__letter logo__letter--1"
+      >
+        W
+      </span>
+      <span
+        className="logo__letter logo__letter--2"
+      >
+        T
+      </span>
+      <span
+        className="logo__letter logo__letter--3"
+      >
+        W
+      </span>
+    </a>
+  </div>
+  <div
+    className="user-block"
+  >
+    <div
+      className="user-block__avatar"
+      onClick={[Function]}
+    >
+      <img
+        alt="userName"
+        height="63"
+        src="avatar.jpg"
+        width="63"
+      />
+    </div>
+  </div>
+</header>
+`;
+
+exports[`should Header render correctly on SignIn Page 1`] = `
+<header
+  className="page-header "
+>
+  <div
+    className="logo"
+  >
+    <a
+      className="logo__link"
+      href="/"
+      onClick={[Function]}
+    >
+      <span
+        className="logo__letter logo__letter--1"
+      >
+        W
+      </span>
+      <span
+        className="logo__letter logo__letter--2"
+      >
+        T
+      </span>
+      <span
+        className="logo__letter logo__letter--3"
+      >
+        W
+      </span>
+    </a>
+  </div>
+  
+</header>
+`;
+
+exports[`should Header render correctly when user is authorized 1`] = `
+<header
+  className="page-header "
+>
+  <div
+    className="logo"
+  >
+    <a
+      className="logo__link"
+      href="/"
+      onClick={[Function]}
+    >
+      <span
+        className="logo__letter logo__letter--1"
+      >
+        W
+      </span>
+      <span
+        className="logo__letter logo__letter--2"
+      >
+        T
+      </span>
+      <span
+        className="logo__letter logo__letter--3"
+      >
+        W
+      </span>
+    </a>
+  </div>
+  <div
+    className="user-block"
+  >
+    <div
+      className="user-block__avatar"
+      onClick={[Function]}
+    >
+      <img
+        alt="userName"
+        height="63"
+        src="avatar.jpg"
+        width="63"
+      />
+    </div>
+  </div>
+</header>
+`;
+
+exports[`should Header render correctly when user is not authorized 1`] = `
+<header
+  className="page-header "
+>
+  <div
+    className="logo"
+  >
+    <a
+      className="logo__link"
+      href="/"
+      onClick={[Function]}
+    >
+      <span
+        className="logo__letter logo__letter--1"
+      >
+        W
+      </span>
+      <span
+        className="logo__letter logo__letter--2"
+      >
+        T
+      </span>
+      <span
+        className="logo__letter logo__letter--3"
+      >
+        W
+      </span>
+    </a>
+  </div>
+  <div
+    className="user-block"
+  >
+    <a
+      className="user-block__link"
+      href="/login"
+      onClick={[Function]}
+    >
+      Sign in
+    </a>
+  </div>
+</header>
+`;
