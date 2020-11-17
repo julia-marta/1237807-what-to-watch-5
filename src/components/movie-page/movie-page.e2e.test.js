@@ -10,7 +10,7 @@ configure({adapter: new Adapter()});
 const {AUTHORIZED} = AuthorizationStatus;
 const mockRelatedFilms = defaultState.DATA.films;
 
-jest.mock(`../header/Header`, () => `Header`);
+jest.mock(`../header/header.jsx`, () => `Header`);
 
 it(`Click on play button should call callback`, () => {
   const handlePlayButtonClick = jest.fn();
