@@ -9,7 +9,6 @@ import MovieOverview from "../movie-overview/movie-overview";
 import MovieDetails from "../movie-details/movie-details";
 import MovieReviews from "../movie-reviews/movie-reviews";
 import MovieList from "../movie-list/movie-list";
-import withActiveTab from "../../hocs/with-active-tab/with-active-tab";
 import withActiveCard from "../../hocs/with-active-card/with-active-card";
 import {getSimilarFilms, getUserStatus} from "../../store/selectors";
 import moviePageProp from "../../prop-types/movie-page.prop";
@@ -21,7 +20,6 @@ const {OVERVIEW, DETAILS, REVIEWS} = Tab;
 const {FILMS, REVIEW} = AppRoute;
 const {AUTHORIZED} = AuthorizationStatus;
 
-const TabsWrapped = withActiveTab(Tabs);
 const MovieListWrapped = withActiveCard(MovieList);
 
 const MoviePage = (props) => {
@@ -86,7 +84,7 @@ const MoviePage = (props) => {
 
           <div className="movie-card__desc">
 
-            <TabsWrapped renderTab={(activeTab) => {
+            <Tabs renderTab={(activeTab) => {
               switch (activeTab) {
                 case OVERVIEW:
                   return <MovieOverview film={film}/>;
