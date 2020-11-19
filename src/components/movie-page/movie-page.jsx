@@ -9,7 +9,6 @@ import MovieOverview from "../movie-overview/movie-overview";
 import MovieDetails from "../movie-details/movie-details";
 import MovieReviews from "../movie-reviews/movie-reviews";
 import MovieList from "../movie-list/movie-list";
-import withActiveCard from "../../hocs/with-active-card/with-active-card";
 import {getSimilarFilms, getUserStatus} from "../../store/selectors";
 import moviePageProp from "../../prop-types/movie-page.prop";
 import movieCardProp from "../../prop-types/movie-card.prop";
@@ -19,8 +18,6 @@ import {Tab, AppRoute, AuthorizationStatus} from "../../const";
 const {OVERVIEW, DETAILS, REVIEWS} = Tab;
 const {FILMS, REVIEW} = AppRoute;
 const {AUTHORIZED} = AuthorizationStatus;
-
-const MovieListWrapped = withActiveCard(MovieList);
 
 const MoviePage = (props) => {
 
@@ -107,7 +104,7 @@ const MoviePage = (props) => {
       <section className="catalog catalog--like-this">
         <h2 className="catalog__title">More like this</h2>
 
-        <MovieListWrapped films={relatedFilms} />
+        <MovieList films={relatedFilms} />
       </section>
 
       <Footer />
