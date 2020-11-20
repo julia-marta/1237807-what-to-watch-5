@@ -1,5 +1,8 @@
 import React, {Fragment, useReducer, useEffect, useCallback, createRef} from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
+import {fetchFilm} from "../../store/actions/api-actions/api-actions";
+import {getFilm} from "../../store/selectors";
 import moviePageProp from "../../prop-types/movie-page.prop";
 import {secondsToMinutes, extend} from "../../utils";
 
@@ -53,33 +56,41 @@ const reducer = (state, action) => {
 };
 
 const Player = (props) => {
-  const {film, onExitClick} = props;
-  const {id, name, videoLink} = film;
+  const {id, film, loadFilm, onExitClick} = props;
+  const {name, videoLink} = film || ``;
   const videoRef = createRef();
 
   const [state, dispatch] = useReducer(reducer, initialState);
   const {isPlaying, duration, progress} = state;
 
   useEffect(() => {
+    loadFilm(id);
+  }, [id]);
+
+  useEffect(() => {
     const video = videoRef.current;
+    if (video) {
 
-    video.oncanplay = () => {
-      dispatch(setDuration(video.duration));
-    };
+      video.oncanplay = () => {
+        dispatch(setDuration(video.duration));
+      };
 
-    video.ontimeupdate = () => {
-      dispatch(setProgress(video.currentTime));
-    };
+      video.ontimeupdate = () => {
+        dispatch(setProgress(video.currentTime));
+      };
 
-    if (isPlaying) {
-      video.play();
-    } else {
-      video.pause();
+      if (isPlaying) {
+        video.play();
+      } else {
+        video.pause();
+      }
     }
 
     return () => {
-      video.oncanplay = null;
-      video.ontimeupdate = null;
+      if (video) {
+        video.oncanplay = null;
+        video.ontimeupdate = null;
+      }
     };
   }, [isPlaying]);
 
@@ -96,14 +107,20 @@ const Player = (props) => {
       }, [videoRef]
   );
 
+  const exitButtonClickHandle = useCallback(
+      () => {
+        onExitClick(id);
+      }, [id]
+  );
+
   const timeElapsed = secondsToMinutes(duration - progress);
   const togglePosition = progress * 100 / duration || 0;
 
-  return (
+  return !film ? `` :
     <div className="player">
       <video ref={videoRef} src={videoLink} className="player__video" poster="../img/player-poster.jpg"></video>
 
-      <button type="button" className="player__exit" onClick={() => onExitClick(id)}>Exit</button>
+      <button type="button" className="player__exit" onClick={exitButtonClickHandle}>Exit</button>
 
       <div className="player__controls">
         <div className="player__controls-row">
@@ -142,13 +159,25 @@ const Player = (props) => {
           </button>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
 
 Player.propTypes = {
-  film: moviePageProp.isRequired,
+  id: PropTypes.string.isRequired,
+  film: PropTypes.oneOfType([moviePageProp.isRequired, () => null]),
+  loadFilm: PropTypes.func.isRequired,
   onExitClick: PropTypes.func.isRequired,
 };
 
-export default Player;
+const mapStateToProps = (state) => ({
+  film: getFilm(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  loadFilm(id) {
+    dispatch(fetchFilm(id));
+  },
+});
+
+export {Player};
+export default connect(mapStateToProps, mapDispatchToProps)(Player);

@@ -7,7 +7,6 @@ import MyList from "../my-list/my-list";
 import MoviePage from "../movie-page/movie-page";
 import AddReview from "../add-review/add-review";
 import Player from "../player/player";
-import withFilm from "../../hocs/with-film/with-film";
 import withReviews from "../../hocs/with-reviews/with-reviews";
 import browserHistory from "../../browser-history";
 import {AppRoute} from "../../const";
@@ -15,7 +14,6 @@ import {AppRoute} from "../../const";
 const {ROOT, LOGIN, MY_LIST, FILMS, REVIEW, PLAYER} = AppRoute;
 
 const MoviePageWrapped = withReviews(MoviePage);
-const PlayerWrapped = withFilm(Player);
 
 const App = () => {
 
@@ -38,7 +36,7 @@ const App = () => {
           return <AddReview id={match.params.id} />;
         }} />
         <Route exact path={`${PLAYER}/:id`} render={({history, match}) => (
-          <PlayerWrapped id={match.params.id} onExitClick={(id) => history.push(`${FILMS}/${id}`)} />
+          <Player id={match.params.id} onExitClick={(id) => history.push(`${FILMS}/${id}`)} />
         )} />
       </Switch>
     </BrowserRouter>
