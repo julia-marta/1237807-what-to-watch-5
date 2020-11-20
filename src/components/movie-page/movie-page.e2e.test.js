@@ -25,7 +25,7 @@ it(`Click on play button should call callback and pass id`, () => {
 
   const wrapper = shallow(
       <MoviePage id={mockId} film={film} reviews={reviews} relatedFilms={mockRelatedFilms}
-        userStatus={AUTHORIZED} loadFilm={noop} addToMyList={noop} onPlayClick={handlePlayButtonClick} />
+        userStatus={AUTHORIZED} loadFilm={noop} loadReviews={noop} addToMyList={noop} onPlayClick={handlePlayButtonClick} />
   );
 
   const playButton = wrapper.find(`button.btn--play`);
@@ -43,7 +43,8 @@ it(`Click on add to my list button should call callbacks and pass id and status 
 
   const wrapper = shallow(
       <MoviePage id={mockId} film={film} reviews={reviews} relatedFilms={mockRelatedFilms}
-        userStatus={AUTHORIZED} loadFilm={handleLoadFilm} addToMyList={handleAddToMyListClick} onPlayClick={noop} />
+        userStatus={AUTHORIZED} loadFilm={handleLoadFilm} loadReviews={noop}
+        addToMyList={handleAddToMyListClick} onPlayClick={noop} />
   );
 
   const listButton = wrapper.find(`button.btn--list`);

@@ -23,7 +23,7 @@ describe(`should MoviePage render correctly`, () => {
       .create(
           <BrowserRouter>
             <MoviePage id={`1`} film={film} reviews={reviews} relatedFilms={mockRelatedFilms}
-              userStatus={AUTHORIZED} loadFilm={noop} addToMyList={noop} onPlayClick={noop} />
+              userStatus={AUTHORIZED} loadFilm={noop} loadReviews={noop} addToMyList={noop} onPlayClick={noop} />
           </BrowserRouter>
       )
       .toJSON();
@@ -35,7 +35,7 @@ describe(`should MoviePage render correctly`, () => {
       .create(
           <BrowserRouter>
             <MoviePage id={`1`} film={film} reviews={reviews} relatedFilms={mockRelatedFilms}
-              userStatus={NOT_AUTHORIZED} loadFilm={noop} addToMyList={noop} onPlayClick={noop} />
+              userStatus={NOT_AUTHORIZED} loadFilm={noop} loadReviews={noop} addToMyList={noop} onPlayClick={noop} />
           </BrowserRouter>
       )
       .toJSON();

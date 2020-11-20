@@ -9,8 +9,8 @@ import MovieOverview from "../movie-overview/movie-overview";
 import MovieDetails from "../movie-details/movie-details";
 import MovieReviews from "../movie-reviews/movie-reviews";
 import MovieList from "../movie-list/movie-list";
-import {fetchFilm, addToFavorites} from "../../store/actions/api-actions/api-actions";
-import {getSimilarFilms, getUserStatus, getFilm} from "../../store/selectors";
+import {fetchFilm, fetchReviews, addToFavorites} from "../../store/actions/api-actions/api-actions";
+import {getSimilarFilms, getUserStatus, getFilm, getReviews} from "../../store/selectors";
 import moviePageProp from "../../prop-types/movie-page.prop";
 import movieCardProp from "../../prop-types/movie-card.prop";
 import reviewProp from "../../prop-types/review.prop";
@@ -22,18 +22,19 @@ const {AUTHORIZED} = AuthorizationStatus;
 
 const MoviePage = (props) => {
 
-  const {id, film, reviews, loadFilm, addToMyList, relatedFilms, userStatus, onPlayClick} = props;
+  const {id, film, reviews, loadFilm, loadReviews, addToMyList, relatedFilms, userStatus, onPlayClick} = props;
   const {name, posterImage, backgroundImage, genre, released, isFavorite} = film || ``;
 
   useEffect(() => {
     loadFilm(id);
+    loadReviews(id);
   }, [id]);
 
   const myListButtonClickHandle = useCallback(
       () => {
         addToMyList(id, Number(!isFavorite));
         loadFilm(id);
-      }, [film, id, addToMyList, loadFilm]
+      }, [film, id, isFavorite]
   );
 
   const playButtonClickHandle = useCallback(
@@ -42,7 +43,7 @@ const MoviePage = (props) => {
       }, [id]
   );
 
-  return !film ? `` : <React.Fragment>
+  return film && reviews ? <React.Fragment>
 
     <section className="movie-card movie-card--full">
       <div className="movie-card__hero">
@@ -128,14 +129,15 @@ const MoviePage = (props) => {
       <Footer />
 
     </div>
-  </React.Fragment>;
+  </React.Fragment> : ``;
 };
 
 MoviePage.propTypes = {
   id: PropTypes.string.isRequired,
   film: PropTypes.oneOfType([moviePageProp.isRequired, () => null]),
-  reviews: PropTypes.arrayOf(reviewProp).isRequired,
+  reviews: PropTypes.oneOfType([PropTypes.arrayOf(reviewProp).isRequired, () => null]),
   loadFilm: PropTypes.func.isRequired,
+  loadReviews: PropTypes.func.isRequired,
   addToMyList: PropTypes.func.isRequired,
   onPlayClick: PropTypes.func.isRequired,
   relatedFilms: PropTypes.arrayOf(movieCardProp).isRequired,
@@ -146,11 +148,15 @@ const mapStateToProps = (state, props) => ({
   relatedFilms: getSimilarFilms(state, props),
   userStatus: getUserStatus(state),
   film: getFilm(state),
+  reviews: getReviews(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   loadFilm(id) {
     dispatch(fetchFilm(id));
+  },
+  loadReviews(id) {
+    dispatch(fetchReviews(id));
   },
   addToMyList(id, status) {
     dispatch(addToFavorites(id, status));

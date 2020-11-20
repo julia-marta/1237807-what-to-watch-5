@@ -7,13 +7,10 @@ import MyList from "../my-list/my-list";
 import MoviePage from "../movie-page/movie-page";
 import AddReview from "../add-review/add-review";
 import Player from "../player/player";
-import withReviews from "../../hocs/with-reviews/with-reviews";
 import browserHistory from "../../browser-history";
 import {AppRoute} from "../../const";
 
 const {ROOT, LOGIN, MY_LIST, FILMS, REVIEW, PLAYER} = AppRoute;
-
-const MoviePageWrapped = withReviews(MoviePage);
 
 const App = () => {
 
@@ -30,7 +27,7 @@ const App = () => {
           return <MyList />;
         }} />
         <Route exact path={`${FILMS}/:id`} render={({history, match}) => (
-          <MoviePageWrapped id={match.params.id} onPlayClick={(id) => history.push(`${PLAYER}/${id}`)}/>
+          <MoviePage id={match.params.id} onPlayClick={(id) => history.push(`${PLAYER}/${id}`)}/>
         )} />
         <PrivateRoute exact path={`${FILMS}/:id${REVIEW}`} render={({match}) => {
           return <AddReview id={match.params.id} />;
