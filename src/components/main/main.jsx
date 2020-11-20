@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import Header from "../header/header";
@@ -10,6 +10,18 @@ import promoFilmProp from "../../prop-types/promo-film.prop";
 const Main = (props) => {
   const {promoFilm, onPlayClick, addToMyList} = props;
   const {id, name, posterImage, backgroundImage, genre, released, isFavorite} = promoFilm;
+
+  const myListButtonClickHandle = useCallback(
+      () => {
+        addToMyList(id, Number(!isFavorite));
+      }, [promoFilm, id, isFavorite]
+  );
+
+  const playButtonClickHandle = useCallback(
+      () => {
+        onPlayClick(id);
+      }, [id]
+  );
 
   return <React.Fragment>
     <section className="movie-card">
@@ -35,13 +47,13 @@ const Main = (props) => {
             </p>
 
             <div className="movie-card__buttons">
-              <button className="btn btn--play movie-card__button" type="button" onClick={() => onPlayClick(id)}>
+              <button className="btn btn--play movie-card__button" type="button" onClick={playButtonClickHandle}>
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>
                 <span>Play</span>
               </button>
-              <button className="btn btn--list movie-card__button" type="button" onClick={() => addToMyList(id, Number(!isFavorite))}>
+              <button className="btn btn--list movie-card__button" type="button" onClick={myListButtonClickHandle}>
                 {isFavorite ?
                   <svg viewBox="0 0 18 14" width="18" height="14">
                     <use xlinkHref="#in-list"></use>

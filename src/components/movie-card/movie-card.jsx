@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback} from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import VideoPlayer from "../video-player/video-player";
@@ -13,9 +13,20 @@ const MovieCard = (props) => {
   const {id, name, previewImage, previewVideoLink} = film;
   const history = browserHistory;
 
+  const cardOverHandle = useCallback(
+      () => {
+        onMovieCardOver(id);
+      }, [id]
+  );
+
+  const cardOutHandle = useCallback(
+      () => {
+        onMovieCardOut();
+      }, []
+  );
+
   return (
-    <article className="small-movie-card catalog__movies-card"
-      onMouseEnter={() => onMovieCardOver(id)} onMouseLeave={() => onMovieCardOut()}>
+    <article className="small-movie-card catalog__movies-card" onMouseEnter={cardOverHandle} onMouseLeave={cardOutHandle}>
 
       {isVideoPlaying ?
         <VideoPlayer trailer={previewVideoLink} preview={previewImage}/>
