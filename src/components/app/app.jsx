@@ -15,7 +15,6 @@ import {AppRoute} from "../../const";
 const {ROOT, LOGIN, MY_LIST, FILMS, REVIEW, PLAYER} = AppRoute;
 
 const MoviePageWrapped = withReviews(MoviePage);
-const AddReviewWrapped = withFilm(AddReview);
 const PlayerWrapped = withFilm(Player);
 
 const App = () => {
@@ -36,7 +35,7 @@ const App = () => {
           <MoviePageWrapped id={match.params.id} onPlayClick={(id) => history.push(`${PLAYER}/${id}`)}/>
         )} />
         <PrivateRoute exact path={`${FILMS}/:id${REVIEW}`} render={({match}) => {
-          return <AddReviewWrapped id={match.params.id} />;
+          return <AddReview id={match.params.id} />;
         }} />
         <Route exact path={`${PLAYER}/:id`} render={({history, match}) => (
           <PlayerWrapped id={match.params.id} onExitClick={(id) => history.push(`${FILMS}/${id}`)} />
