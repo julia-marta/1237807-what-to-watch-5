@@ -25,6 +25,10 @@ export const getUserStatus = (state) => {
   return state.USER.status;
 };
 
+export const getReviewStatus = (state) => {
+  return state.USER.reviewStatus;
+};
+
 export const getCurrentFilmID = (_, props) => {
   return Number(props.id);
 };
