@@ -14,7 +14,7 @@ const Tabs = (props) => {
       (evt) => {
         evt.preventDefault();
         setActiveTab(evt.target.textContent);
-      }
+      }, []
   );
 
   return (

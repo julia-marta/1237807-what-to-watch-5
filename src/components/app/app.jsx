@@ -9,7 +9,6 @@ import AddReview from "../add-review/add-review";
 import Player from "../player/player";
 import withFilm from "../../hocs/with-film/with-film";
 import withReviews from "../../hocs/with-reviews/with-reviews";
-import withVideo from "../../hocs/with-video/with-video";
 import browserHistory from "../../browser-history";
 import {AppRoute} from "../../const";
 
@@ -17,7 +16,7 @@ const {ROOT, LOGIN, MY_LIST, FILMS, REVIEW, PLAYER} = AppRoute;
 
 const MoviePageWrapped = withFilm(withReviews(MoviePage));
 const AddReviewWrapped = withFilm(AddReview);
-const PlayerWrapped = withFilm(withVideo(Player));
+const PlayerWrapped = withFilm(Player);
 
 const App = () => {
 

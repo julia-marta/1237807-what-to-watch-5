@@ -1,34 +1,37 @@
 import React from "react";
-import {configure, shallow} from "enzyme";
+import {configure, mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import Player from "./player";
 import {film, noop} from "../../test-data";
 
+const mockReducer = jest.fn();
+
+jest.mock(`react`, () => Object.assign({},
+    jest.requireActual(`react`), {
+      useReducer: (initial) => [initial, mockReducer],
+    }));
+
 configure({adapter: new Adapter()});
 
-it(`Click on play button should call callback`, () => {
-  const handlePlayButtonClick = jest.fn();
+Object.defineProperty(global.window.HTMLMediaElement.prototype, `play`, {
+  configurable: true,
+  get() {
+    return () => {};
+  }
+});
 
-  const wrapper = shallow(
-      <Player film={film} onExitClick={noop} renderPlayer={noop} isPlaying={true}
-        duration={120} progress={60} onPlayButtonClick={handlePlayButtonClick} onFullScreenButtonClick={noop}>
-        <React.Fragment />
-      </Player>
-  );
-  const playButton = wrapper.find(`button.player__play`);
-  playButton.simulate(`click`);
-
-  expect(handlePlayButtonClick).toHaveBeenCalledTimes(1);
+Object.defineProperty(global.window.HTMLMediaElement.prototype, `pause`, {
+  configurable: true,
+  get() {
+    return () => {};
+  }
 });
 
 it(`Click on exit button should call callback`, () => {
   const handleExitButtonClick = jest.fn();
 
-  const wrapper = shallow(
-      <Player film={film} onExitClick={handleExitButtonClick} renderPlayer={noop} isPlaying={true}
-        duration={120} progress={60} onPlayButtonClick={noop} onFullScreenButtonClick={noop}>
-        <React.Fragment />
-      </Player>
+  const wrapper = mount(
+      <Player film={film} onExitClick={handleExitButtonClick} />
   );
   const exitButton = wrapper.find(`button.player__exit`);
   exitButton.simulate(`click`);
@@ -36,17 +39,15 @@ it(`Click on exit button should call callback`, () => {
   expect(handleExitButtonClick).toHaveBeenCalledTimes(1);
 });
 
-it(`Click on full screen button should call callback`, () => {
-  const handleFullScreenButtonClick = jest.fn();
+it(`Click on play button should call dispatch witn change playing status action`, () => {
 
-  const wrapper = shallow(
-      <Player film={film} onExitClick={noop} renderPlayer={noop} isPlaying={true}
-        duration={120} progress={60} onPlayButtonClick={noop} onFullScreenButtonClick={handleFullScreenButtonClick}>
-        <React.Fragment />
-      </Player>
+  const wrapper = mount(
+      <Player film={film} onExitClick={noop} />
   );
-  const fullScreenButton = wrapper.find(`button.player__full-screen`);
-  fullScreenButton.simulate(`click`);
 
-  expect(handleFullScreenButtonClick).toHaveBeenCalledTimes(1);
+  const playButton = wrapper.find(`button.player__play`);
+  playButton.simulate(`click`);
+  expect(mockReducer.mock.calls[0][0]).toEqual({type: `CHANGE_PLAYING_STATE`});
+
+  expect(mockReducer).toHaveBeenCalledTimes(1);
 });

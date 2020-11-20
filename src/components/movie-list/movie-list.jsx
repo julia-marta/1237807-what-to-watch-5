@@ -18,19 +18,19 @@ const MovieList = (props) => {
     return () => {
       clearTimeout(timer);
     };
-  });
+  }, [timer]);
 
   const cardOverHandle = useCallback(
       (id) => {
         timer = setTimeout(() => setActiveCard(id), TRAILER_START_TIME);
-      }
+      }, [timer]
   );
 
   const cardOutHandle = useCallback(
       () => {
         clearTimeout(timer);
         setActiveCard(-1);
-      }
+      }, [timer]
   );
 
   return (
