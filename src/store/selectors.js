@@ -5,6 +5,10 @@ export const getFilms = (state) => {
   return state.DATA.films;
 };
 
+export const getFilm = (state) => {
+  return state.DATA.currentFilm;
+};
+
 export const getGenre = (state) => {
   return state.FILTER.genre;
 };

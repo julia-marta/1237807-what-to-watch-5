@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useCallback} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
@@ -9,7 +9,8 @@ import MovieOverview from "../movie-overview/movie-overview";
 import MovieDetails from "../movie-details/movie-details";
 import MovieReviews from "../movie-reviews/movie-reviews";
 import MovieList from "../movie-list/movie-list";
-import {getSimilarFilms, getUserStatus} from "../../store/selectors";
+import {fetchFilm, addToFavorites} from "../../store/actions/api-actions/api-actions";
+import {getSimilarFilms, getUserStatus, getFilm} from "../../store/selectors";
 import moviePageProp from "../../prop-types/movie-page.prop";
 import movieCardProp from "../../prop-types/movie-card.prop";
 import reviewProp from "../../prop-types/review.prop";
@@ -21,10 +22,27 @@ const {AUTHORIZED} = AuthorizationStatus;
 
 const MoviePage = (props) => {
 
-  const {film, reviews, relatedFilms, userStatus, onPlayClick, onMyListClick} = props;
-  const {id, name, posterImage, backgroundImage, genre, released, isFavorite} = film;
+  const {id, film, reviews, loadFilm, addToMyList, relatedFilms, userStatus, onPlayClick} = props;
+  const {name, posterImage, backgroundImage, genre, released, isFavorite} = film || ``;
 
-  return <React.Fragment>
+  useEffect(() => {
+    loadFilm(id);
+  }, [id]);
+
+  const myListButtonClickHandle = useCallback(
+      () => {
+        addToMyList(id, Number(!isFavorite));
+        loadFilm(id);
+      }, [film, id, addToMyList, loadFilm]
+  );
+
+  const playButtonClickHandle = useCallback(
+      () => {
+        onPlayClick(id);
+      }, [id]
+  );
+
+  return !film ? `` : <React.Fragment>
 
     <section className="movie-card movie-card--full">
       <div className="movie-card__hero">
@@ -45,13 +63,13 @@ const MoviePage = (props) => {
             </p>
 
             <div className="movie-card__buttons">
-              <button className="btn btn--play movie-card__button" type="button" onClick={() => onPlayClick(id)}>
+              <button className="btn btn--play movie-card__button" type="button" onClick={playButtonClickHandle}>
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>
                 <span>Play</span>
               </button>
-              <button className="btn btn--list movie-card__button" type="button" onClick={() => onMyListClick(Number(!isFavorite))}>
+              <button className="btn btn--list movie-card__button" type="button" onClick={myListButtonClickHandle}>
                 {isFavorite ?
                   <svg viewBox="0 0 18 14" width="18" height="14">
                     <use xlinkHref="#in-list"></use>
@@ -115,10 +133,11 @@ const MoviePage = (props) => {
 
 MoviePage.propTypes = {
   id: PropTypes.string.isRequired,
-  film: moviePageProp.isRequired,
+  film: PropTypes.oneOfType([moviePageProp.isRequired, () => null]),
   reviews: PropTypes.arrayOf(reviewProp).isRequired,
+  loadFilm: PropTypes.func.isRequired,
+  addToMyList: PropTypes.func.isRequired,
   onPlayClick: PropTypes.func.isRequired,
-  onMyListClick: PropTypes.func.isRequired,
   relatedFilms: PropTypes.arrayOf(movieCardProp).isRequired,
   userStatus: PropTypes.string.isRequired,
 };
@@ -126,7 +145,17 @@ MoviePage.propTypes = {
 const mapStateToProps = (state, props) => ({
   relatedFilms: getSimilarFilms(state, props),
   userStatus: getUserStatus(state),
+  film: getFilm(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  loadFilm(id) {
+    dispatch(fetchFilm(id));
+  },
+  addToMyList(id, status) {
+    dispatch(addToFavorites(id, status));
+  },
 });
 
 export {MoviePage};
-export default connect(mapStateToProps)(MoviePage);
+export default connect(mapStateToProps, mapDispatchToProps)(MoviePage);

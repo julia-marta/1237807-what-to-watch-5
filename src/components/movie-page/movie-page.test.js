@@ -10,13 +10,20 @@ const mockRelatedFilms = defaultState.DATA.films;
 
 jest.mock(`../header/header.jsx`, () => `Header`);
 
+const mockEffect = jest.fn();
+
+jest.mock(`react`, () => Object.assign({},
+    jest.requireActual(`react`), {
+      useEffect: () => mockEffect,
+    }));
+
 describe(`should MoviePage render correctly`, () => {
   it(`with add review button when user is authorized`, () => {
     const tree = renderer
       .create(
           <BrowserRouter>
             <MoviePage id={`1`} film={film} reviews={reviews} relatedFilms={mockRelatedFilms}
-              userStatus={AUTHORIZED} onPlayClick={noop} onMyListClick={noop} />
+              userStatus={AUTHORIZED} loadFilm={noop} addToMyList={noop} onPlayClick={noop} />
           </BrowserRouter>
       )
       .toJSON();
@@ -28,7 +35,7 @@ describe(`should MoviePage render correctly`, () => {
       .create(
           <BrowserRouter>
             <MoviePage id={`1`} film={film} reviews={reviews} relatedFilms={mockRelatedFilms}
-              userStatus={NOT_AUTHORIZED} onPlayClick={noop} onMyListClick={noop} />
+              userStatus={NOT_AUTHORIZED} loadFilm={noop} addToMyList={noop} onPlayClick={noop} />
           </BrowserRouter>
       )
       .toJSON();

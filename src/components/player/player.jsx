@@ -81,7 +81,7 @@ const Player = (props) => {
       video.oncanplay = null;
       video.ontimeupdate = null;
     };
-  });
+  }, [isPlaying]);
 
   const playButtonClickHandle = useCallback(
       () => {

@@ -14,7 +14,7 @@ import {AppRoute} from "../../const";
 
 const {ROOT, LOGIN, MY_LIST, FILMS, REVIEW, PLAYER} = AppRoute;
 
-const MoviePageWrapped = withFilm(withReviews(MoviePage));
+const MoviePageWrapped = withReviews(MoviePage);
 const AddReviewWrapped = withFilm(AddReview);
 const PlayerWrapped = withFilm(Player);
 
