@@ -1,4 +1,4 @@
-import React, {useEffect, useCallback} from "react";
+import React, {Fragment, useEffect, useCallback} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
@@ -15,6 +15,7 @@ import moviePageProp from "../../prop-types/movie-page.prop";
 import movieCardProp from "../../prop-types/movie-card.prop";
 import reviewProp from "../../prop-types/review.prop";
 import {Tab, AppRoute, AuthorizationStatus} from "../../const";
+import {defaultFilm} from "../../utils";
 
 const {OVERVIEW, DETAILS, REVIEWS} = Tab;
 const {FILMS, REVIEW} = AppRoute;
@@ -23,7 +24,7 @@ const {AUTHORIZED} = AuthorizationStatus;
 const MoviePage = (props) => {
 
   const {id, film, reviews, loadFilm, loadReviews, addToMyList, relatedFilms, userStatus, onPlayClick} = props;
-  const {name, posterImage, backgroundImage, genre, released, isFavorite} = film || ``;
+  const {name, posterImage, backgroundImage, genre, released, isFavorite} = film || defaultFilm;
 
   useEffect(() => {
     loadFilm(id);
@@ -43,7 +44,7 @@ const MoviePage = (props) => {
       }, [id]
   );
 
-  return film && reviews ? <React.Fragment>
+  return film && reviews ? <Fragment>
 
     <section className="movie-card movie-card--full">
       <div className="movie-card__hero">
@@ -129,7 +130,7 @@ const MoviePage = (props) => {
       <Footer />
 
     </div>
-  </React.Fragment> : ``;
+  </Fragment> : ``;
 };
 
 MoviePage.propTypes = {

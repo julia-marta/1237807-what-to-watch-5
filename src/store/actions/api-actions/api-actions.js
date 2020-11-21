@@ -85,6 +85,11 @@ export const addReview = (id, {rating, text}) => (dispatch, _getState, api) => (
 
 export const addToFavorites = (id, status) => (dispatch, _getState, api) => (
   api.post(`${FAVORITE}/${id}/${status}`)
+  .then((data) => {
+    if (data.response && data.response.status === UNAUTHORIZED) {
+      swal(`Error`, `${data.response.data.error}`, `error`);
+    }
+  })
     .then(() => dispatch(fetchFilms()))
     .then(() => dispatch(fetchPromoFilm()))
     .catch((error) => {

@@ -8,13 +8,14 @@ import Header from "../header/header";
 import ReviewForm from "../review-form/review-form";
 import moviePageProp from "../../prop-types/movie-page.prop";
 import {AppRoute} from "../../const";
+import {defaultFilm} from "../../utils";
 
 const {FILMS} = AppRoute;
 
 const AddReview = (props) => {
 
   const {id, film, loadFilm} = props;
-  const {name, backgroundImage, posterImage} = film || ``;
+  const {name, backgroundImage, posterImage} = film || defaultFilm;
 
   useEffect(() => {
     loadFilm(id);

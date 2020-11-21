@@ -2,6 +2,7 @@ import React from "react";
 import {configure, mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import {Player} from "./player";
+import {ActionCreator} from "./reducer";
 import {film, noop} from "../../test-data";
 
 const mockReducer = jest.fn();
@@ -50,5 +51,5 @@ it(`Click on play button should call dispatch witn change playing status action`
   const playButton = wrapper.find(`button.player__play`);
   playButton.simulate(`click`);
   expect(mockReducer).toHaveBeenCalledTimes(1);
-  expect(mockReducer.mock.calls[0][0]).toEqual({type: `CHANGE_PLAYING_STATE`});
+  expect(mockReducer.mock.calls[0][0]).toEqual(ActionCreator.changePlayingState());
 });

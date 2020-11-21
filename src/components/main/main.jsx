@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {Fragment, useCallback} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import Header from "../header/header";
@@ -23,7 +23,7 @@ const Main = (props) => {
       }, [id]
   );
 
-  return <React.Fragment>
+  return <Fragment>
     <section className="movie-card">
       <div className="movie-card__bg">
         <img src={backgroundImage} alt={name} />
@@ -76,7 +76,7 @@ const Main = (props) => {
 
       <Footer isMain={true}/>
     </div>
-  </React.Fragment>;
+  </Fragment>;
 };
 
 Main.propTypes = {

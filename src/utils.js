@@ -121,3 +121,13 @@ export const adaptFilmToClient = (film) => {
 
   return adaptedFilm;
 };
+
+export const defaultFilm = {
+  name: ``,
+  backgroundImage: ``,
+  posterImage: ``,
+  genre: ``,
+  released: ``,
+  isFavorite: ``,
+  videoLink: ``,
+};

@@ -45,6 +45,12 @@ export const ActionType = {
   SET_REVIEW_STATUS: `SET_REVIEW_STATUS`,
 };
 
+export const PlayerActionType = {
+  CHANGE_PLAYING_STATE: `CHANGE_PLAYING_STATE`,
+  SET_DURATION: `SET_DURATION`,
+  SET_PROGRESS: `SET_PROGRESS`,
+};
+
 export const AuthorizationStatus = {
   AUTHORIZED: `AUTHORIZED`,
   NOT_AUTHORIZED: `NOT_AUTHORIZED`,

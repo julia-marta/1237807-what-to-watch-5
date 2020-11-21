@@ -1,64 +1,18 @@
-import React, {Fragment, useReducer, useEffect, useCallback, createRef} from "react";
+import React, {Fragment, useReducer, useEffect, useCallback, useRef} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
+import {ActionCreator, initialState, reducer} from "./reducer";
 import {fetchFilm} from "../../store/actions/api-actions/api-actions";
 import {getFilm} from "../../store/selectors";
 import moviePageProp from "../../prop-types/movie-page.prop";
-import {secondsToMinutes, extend} from "../../utils";
-
-const initialState = {
-  isPlaying: true,
-  duration: 0,
-  progress: 0,
-};
-
-const ActionType = {
-  CHANGE_PLAYING_STATE: `CHANGE_PLAYING_STATE`,
-  SET_DURATION: `SET_DURATION`,
-  SET_PROGRESS: `SET_PROGRESS`,
-};
-
-const {CHANGE_PLAYING_STATE, SET_DURATION, SET_PROGRESS} = ActionType;
-
-const ActionCreator = {
-  changePlayingState: () => ({
-    type: CHANGE_PLAYING_STATE,
-  }),
-  setDuration: (duration) => ({
-    type: SET_DURATION,
-    payload: Math.floor(duration),
-  }),
-  setProgress: (progress) => ({
-    type: SET_PROGRESS,
-    payload: Math.floor(progress),
-  }),
-};
+import {secondsToMinutes, defaultFilm} from "../../utils";
 
 const {changePlayingState, setDuration, setProgress} = ActionCreator;
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case CHANGE_PLAYING_STATE:
-      return extend(state, {
-        isPlaying: !state.isPlaying,
-      });
-    case SET_DURATION:
-      return extend(state, {
-        duration: action.payload,
-      });
-    case SET_PROGRESS:
-      return extend(state, {
-        progress: action.payload,
-      });
-    default:
-      return state;
-  }
-};
-
 const Player = (props) => {
   const {id, film, loadFilm, onExitClick} = props;
-  const {name, videoLink} = film || ``;
-  const videoRef = createRef();
+  const {name, videoLink} = film || defaultFilm;
+  const videoRef = useRef();
 
   const [state, dispatch] = useReducer(reducer, initialState);
   const {isPlaying, duration, progress} = state;
