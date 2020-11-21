@@ -1,7 +1,12 @@
-import {PlayerActionType} from "../../const";
 import {extend} from "../../utils";
 
-const {CHANGE_PLAYING_STATE, SET_DURATION, SET_PROGRESS} = PlayerActionType;
+const ActionType = {
+  CHANGE_PLAYING_STATE: `CHANGE_PLAYING_STATE`,
+  SET_DURATION: `SET_DURATION`,
+  SET_PROGRESS: `SET_PROGRESS`,
+};
+
+const {CHANGE_PLAYING_STATE, SET_DURATION, SET_PROGRESS} = ActionType;
 
 export const initialState = {
   isPlaying: true,
