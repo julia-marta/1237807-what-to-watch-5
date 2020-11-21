@@ -5,39 +5,55 @@ import {MoviePage} from "./movie-page";
 import {noop, film, reviews, defaultState} from "../../test-data";
 import {AuthorizationStatus} from "../../const";
 
-configure({adapter: new Adapter()});
-
 const {AUTHORIZED} = AuthorizationStatus;
 const mockRelatedFilms = defaultState.DATA.films;
 
-jest.mock(`../header/Header`, () => `Header`);
+jest.mock(`../header/header.jsx`, () => `Header`);
 
-it(`Click on play button should call callback`, () => {
+const mockEffect = jest.fn();
+
+jest.mock(`react`, () => Object.assign({},
+    jest.requireActual(`react`), {
+      useEffect: () => mockEffect,
+    }));
+
+configure({adapter: new Adapter()});
+
+it(`Click on play button should call callback and pass id`, () => {
   const handlePlayButtonClick = jest.fn();
+  const mockId = `1`;
 
   const wrapper = shallow(
-      <MoviePage id={`1`} film={film} reviews={reviews} relatedFilms={mockRelatedFilms}
-        userStatus={AUTHORIZED} onPlayClick={handlePlayButtonClick} onMyListClick={noop} />
+      <MoviePage id={mockId} film={film} reviews={reviews} relatedFilms={mockRelatedFilms}
+        userStatus={AUTHORIZED} loadFilm={noop} loadReviews={noop} addToMyList={noop} onPlayClick={handlePlayButtonClick} />
   );
 
   const playButton = wrapper.find(`button.btn--play`);
   playButton.simulate(`click`);
 
   expect(handlePlayButtonClick).toHaveBeenCalledTimes(1);
-  expect(handlePlayButtonClick.mock.calls[0][0]).toEqual(film.id);
+  expect(handlePlayButtonClick.mock.calls[0][0]).toEqual(mockId);
 });
 
-it(`Click on add to my list button should call callback and pass number`, () => {
-  const handleListButtonClick = jest.fn();
+it(`Click on add to my list button should call callbacks and pass id and status number`, () => {
+
+  const handleAddToMyListClick = jest.fn();
+  const handleLoadFilm = jest.fn();
+  const mockId = `1`;
 
   const wrapper = shallow(
-      <MoviePage id={`1`} film={film} reviews={reviews} relatedFilms={mockRelatedFilms}
-        userStatus={AUTHORIZED} onPlayClick={noop} onMyListClick={handleListButtonClick} />
+      <MoviePage id={mockId} film={film} reviews={reviews} relatedFilms={mockRelatedFilms}
+        userStatus={AUTHORIZED} loadFilm={handleLoadFilm} loadReviews={noop}
+        addToMyList={handleAddToMyListClick} onPlayClick={noop} />
   );
 
   const listButton = wrapper.find(`button.btn--list`);
   listButton.simulate(`click`);
 
-  expect(handleListButtonClick).toHaveBeenCalledTimes(1);
-  expect(handleListButtonClick.mock.calls[0][0]).toEqual(expect.any(Number));
+  expect(handleAddToMyListClick).toHaveBeenCalledTimes(1);
+  expect(handleAddToMyListClick.mock.calls[0][0]).toEqual(mockId);
+  expect(handleAddToMyListClick.mock.calls[0][1]).toEqual(expect.any(Number));
+
+  expect(handleLoadFilm).toHaveBeenCalledTimes(1);
+  expect(handleLoadFilm.mock.calls[0][0]).toEqual(mockId);
 });

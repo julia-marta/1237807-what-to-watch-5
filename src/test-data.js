@@ -58,7 +58,7 @@ export const reviews = [
     },
     rating: 7.2,
     comment: `The mannered, madcap proceedings are often delightful, occasionally silly, and here and there, gruesome and/or heartbreaking.`,
-    date: `2020-10-16T22:30:13.569Z`,
+    date: `2019-05-18T14:13:56.569Z`,
   }
 ];
 

@@ -1,20 +1,26 @@
-import React from "react";
+import React, {useEffect} from "react";
+import PropTypes from "prop-types";
+import {connect} from "react-redux";
 import {Link} from "react-router-dom";
+import {fetchFilm} from "../../store/actions/api-actions/api-actions";
+import {getFilm} from "../../store/selectors";
 import Header from "../header/header";
 import ReviewForm from "../review-form/review-form";
-import withNewReview from "../../hocs/with-new-review/with-new-review";
 import moviePageProp from "../../prop-types/movie-page.prop";
 import {AppRoute} from "../../const";
 
-const ReviewFormWrapped = withNewReview(ReviewForm);
 const {FILMS} = AppRoute;
 
 const AddReview = (props) => {
 
-  const {film} = props;
-  const {id, name, backgroundImage, posterImage} = film;
+  const {id, film, loadFilm} = props;
+  const {name, backgroundImage, posterImage} = film || ``;
 
-  return (
+  useEffect(() => {
+    loadFilm(id);
+  }, [id]);
+
+  return !film ? `` :
     <section className="movie-card movie-card--full">
       <div className="movie-card__header">
         <div className="movie-card__bg" style={{backgroundColor: film.backgroundColor}}>
@@ -44,15 +50,27 @@ const AddReview = (props) => {
       </div>
 
       <div className="add-review">
-        <ReviewFormWrapped id={id} />
+        <ReviewForm id={film.id} />
       </div>
 
-    </section>
-  );
+    </section>;
 };
 
 AddReview.propTypes = {
-  film: moviePageProp.isRequired,
+  id: PropTypes.string.isRequired,
+  film: PropTypes.oneOfType([moviePageProp.isRequired, () => null]),
+  loadFilm: PropTypes.func.isRequired,
 };
 
-export default AddReview;
+const mapStateToProps = (state) => ({
+  film: getFilm(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  loadFilm(id) {
+    dispatch(fetchFilm(id));
+  },
+});
+
+export {AddReview};
+export default connect(mapStateToProps, mapDispatchToProps)(AddReview);

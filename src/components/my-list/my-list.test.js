@@ -6,7 +6,7 @@ import {defaultState} from "../../test-data";
 
 const mockFavoriteFilms = defaultState.DATA.films;
 
-jest.mock(`../header/Header`, () => `Header`);
+jest.mock(`../header/header.jsx`, () => `Header`);
 
 describe(`should MyList render correctly`, () => {
   it(`with favorite films`, () => {

@@ -13,7 +13,7 @@ it(`should AddReview render correctly`, () => {
     .create(
         <Provider store={mockStore}>
           <BrowserRouter>
-            <AddReview film={film} />
+            <AddReview id={`1`} film={film} />
           </BrowserRouter>
         </Provider>
     )

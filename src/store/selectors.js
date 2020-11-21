@@ -5,6 +5,14 @@ export const getFilms = (state) => {
   return state.DATA.films;
 };
 
+export const getFilm = (state) => {
+  return state.DATA.currentFilm;
+};
+
+export const getReviews = (state) => {
+  return state.DATA.currentReviews;
+};
+
 export const getGenre = (state) => {
   return state.FILTER.genre;
 };
@@ -15,6 +23,10 @@ export const getCardsCount = (state) => {
 
 export const getUserStatus = (state) => {
   return state.USER.status;
+};
+
+export const getReviewStatus = (state) => {
+  return state.USER.reviewStatus;
 };
 
 export const getCurrentFilmID = (_, props) => {

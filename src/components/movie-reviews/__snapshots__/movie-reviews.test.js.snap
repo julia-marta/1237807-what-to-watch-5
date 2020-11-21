@@ -65,9 +65,9 @@ exports[`should MovieReviews tab render correctly 1`] = `
           </cite>
           <time
             className="review__date"
-            dateTime="2020-10-16T22:30:13.569Z"
+            dateTime="2019-05-18T14:13:56.569Z"
           >
-            October 17, 2020
+            May 18, 2019
           </time>
         </footer>
       </blockquote>

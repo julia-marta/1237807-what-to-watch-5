@@ -5,11 +5,8 @@ import {changeGenre, showMoreCards, resetCards} from "../../store/actions/filter
 import MovieList from "../movie-list/movie-list";
 import GenresList from "../genres-list/genres-list";
 import ShowMoreButton from "../show-more-button/show-more-button";
-import withActiveCard from "../../hocs/with-active-card/with-active-card";
 import {getGenre, getCardsCount, getFilteredFilms, getGenres} from "../../store/selectors";
 import movieCardProp from "../../prop-types/movie-card.prop";
-
-const MovieListWrapped = withActiveCard(MovieList);
 
 const Catalog = (props) => {
   const {filteredFilms, genresList, activeGenre, changeGenreAction, cardsCount, showMoreCardsAction, resetCardsAction} = props;
@@ -22,7 +19,7 @@ const Catalog = (props) => {
 
       <GenresList genres={genresList} activeGenre={activeGenre} onGenreClick={changeGenreAction} resetCards={resetCardsAction} />
 
-      <MovieListWrapped films={renderedFilms} />
+      <MovieList films={renderedFilms} />
 
       {filteredFilms.length > renderedFilmsCount ?
         <ShowMoreButton onShowMoreButtonClick={showMoreCardsAction} filmsToShowCount={filteredFilms.slice(renderedFilmsCount).length}/>

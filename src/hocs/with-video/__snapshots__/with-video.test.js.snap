@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`should withVideo HOC render correctly 1`] = `
-<video
-  className="player__video"
-  poster="../img/player-poster.jpg"
-  src="https://trailers.apple.com/movies/universal/krampus/krampus-tlr1_h480p.mov"
-/>
-`;
