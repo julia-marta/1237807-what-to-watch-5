@@ -12,25 +12,25 @@ const SignIn = (props) => {
   const emailRef = useRef();
   const passwordRef = useRef();
 
-  const formSubmitHandle = useCallback(
+  const handleFormSubmit = useCallback(
       (evt) => {
         evt.preventDefault();
         onSubmit({
           email: emailRef.current.value,
           password: passwordRef.current.value,
         });
-      }
+      }, [emailRef, passwordRef]
   );
 
   return (
     <div className="user-page">
 
-      <Header isSignIn={true} classTitle={`user-page__head`}>
+      <Header isSignIn classTitle={`user-page__head`}>
         <h1 className="page-title user-page__title">Sign in</h1>
       </Header>
 
       <div className="sign-in user-page__content">
-        <form action="#" className="sign-in__form" onSubmit={formSubmitHandle}>
+        <form action="#" className="sign-in__form" onSubmit={handleFormSubmit}>
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input ref={emailRef} className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" />

@@ -27,10 +27,10 @@ const ReviewForm = (props) => {
   const isReviewValid = rating && (text.length > MIN && text.length < MAX);
 
   useEffect(() => {
-    setStatus(reviewStatus === SAVING ? true : false);
+    setStatus(reviewStatus === SAVING);
   }, [reviewStatus]);
 
-  const fieldChangeHandle = useCallback(
+  const handleFieldChange = useCallback(
       ({name, value}) => {
         setReviewData((prevData) => (
           extend(prevData, {[name]: value})
@@ -38,7 +38,7 @@ const ReviewForm = (props) => {
       }, [reviewData]
   );
 
-  const formSubmitHandle = useCallback(
+  const handleFormSubmit = useCallback(
       (evt) => {
         evt.preventDefault();
         setReviewStatusAction(SAVING);
@@ -47,14 +47,14 @@ const ReviewForm = (props) => {
   );
 
   return (
-    <form action="#" className="add-review__form" onSubmit={formSubmitHandle}>
+    <form action="#" className="add-review__form" onSubmit={handleFormSubmit}>
       <div className="rating">
         <div className="rating__stars">
 
           {STARS.map((star, i) => (
             <React.Fragment key={i + star}>
               <input className="rating__input" id={`star-${star}`} type="radio" name="rating" value={star}
-                checked={rating === star} disabled={isSaving} onChange={(evt) => fieldChangeHandle(evt.target)}/>
+                checked={rating === star} disabled={isSaving} onChange={(evt) => handleFieldChange(evt.target)} />
               <label className="rating__label" htmlFor={`star-${star}`}>Rating {star}</label>
             </React.Fragment>
           ))}
@@ -65,7 +65,7 @@ const ReviewForm = (props) => {
       <div className="add-review__text">
         <textarea className="add-review__textarea" name="text" id="review-text" value={text}
           minLength={MIN} maxLength={MAX} placeholder="Review text"
-          disabled={isSaving} onChange={(evt) => fieldChangeHandle(evt.target)} />
+          disabled={isSaving} onChange={(evt) => handleFieldChange(evt.target)} />
         <div className="add-review__submit">
           <button className="add-review__btn" type="submit" disabled={!isReviewValid || isSaving}>Post</button>
         </div>

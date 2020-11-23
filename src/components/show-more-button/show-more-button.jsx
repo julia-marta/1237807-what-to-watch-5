@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 const ShowMoreButton = (props) => {
   const {onShowMoreButtonClick, filmsToShowCount} = props;
 
-  const catalogButtonClickHandle = useCallback(
+  const handleCatalogButtonClick = useCallback(
       () => {
         onShowMoreButtonClick(filmsToShowCount);
       }, [filmsToShowCount]
@@ -12,7 +12,7 @@ const ShowMoreButton = (props) => {
 
   return (
     <div className="catalog__more">
-      <button className="catalog__button" type="button" onClick={catalogButtonClickHandle}>
+      <button className="catalog__button" type="button" onClick={handleCatalogButtonClick}>
         Show more
       </button>
     </div>

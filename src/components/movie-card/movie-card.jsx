@@ -13,20 +13,20 @@ const MovieCard = (props) => {
   const {id, name, previewImage, previewVideoLink} = film;
   const history = browserHistory;
 
-  const cardOverHandle = useCallback(
+  const handleCardOver = useCallback(
       () => {
         onMovieCardOver(id);
       }, [id]
   );
 
-  const cardOutHandle = useCallback(
+  const handleCardOut = useCallback(
       () => {
         onMovieCardOut();
       }, []
   );
 
   return (
-    <article className="small-movie-card catalog__movies-card" onMouseEnter={cardOverHandle} onMouseLeave={cardOutHandle}>
+    <article className="small-movie-card catalog__movies-card" onMouseEnter={handleCardOver} onMouseLeave={handleCardOut}>
 
       {isVideoPlaying ?
         <VideoPlayer trailer={previewVideoLink} preview={previewImage}/>

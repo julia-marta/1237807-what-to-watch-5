@@ -31,14 +31,14 @@ const MoviePage = (props) => {
     loadReviews(id);
   }, [id]);
 
-  const myListButtonClickHandle = useCallback(
+  const handleMyListButtonClick = useCallback(
       () => {
         addToMyList(id, Number(!isFavorite));
         loadFilm(id);
       }, [film, id, isFavorite]
   );
 
-  const playButtonClickHandle = useCallback(
+  const handlePlayButtonClick = useCallback(
       () => {
         onPlayClick(id);
       }, [id]
@@ -65,20 +65,20 @@ const MoviePage = (props) => {
             </p>
 
             <div className="movie-card__buttons">
-              <button className="btn btn--play movie-card__button" type="button" onClick={playButtonClickHandle}>
+              <button className="btn btn--play movie-card__button" type="button" onClick={handlePlayButtonClick}>
                 <svg viewBox="0 0 19 19" width="19" height="19">
-                  <use xlinkHref="#play-s"></use>
+                  <use xlinkHref="#play-s" />
                 </svg>
                 <span>Play</span>
               </button>
-              <button className="btn btn--list movie-card__button" type="button" onClick={myListButtonClickHandle}>
+              <button className="btn btn--list movie-card__button" type="button" onClick={handleMyListButtonClick}>
                 {isFavorite ?
                   <svg viewBox="0 0 18 14" width="18" height="14">
-                    <use xlinkHref="#in-list"></use>
+                    <use xlinkHref="#in-list" />
                   </svg>
                   :
                   <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
+                    <use xlinkHref="#add" />
                   </svg>
                 }
                 <span>My list</span>

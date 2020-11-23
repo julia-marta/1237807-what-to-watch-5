@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 const GenresListItem = (props) => {
   const {genre, onGenreClick, resetCards, isActive} = props;
 
-  const genresLinkHandle = useCallback(
+  const handleGenreLinkClick = useCallback(
       () => {
         onGenreClick(genre);
         resetCards();
@@ -13,7 +13,7 @@ const GenresListItem = (props) => {
 
   return (
     <li className={`catalog__genres-item ${isActive ? `catalog__genres-item--active` : ``}`}>
-      <a className="catalog__genres-link" onClick={genresLinkHandle}>
+      <a className="catalog__genres-link" onClick={handleGenreLinkClick}>
         {genre}
       </a>
     </li>

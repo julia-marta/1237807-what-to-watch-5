@@ -14,19 +14,15 @@ const MovieList = (props) => {
 
   let timer = null;
 
-  useEffect(() => {
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [timer]);
+  useEffect(() => () => clearTimeout(timer), [timer]);
 
-  const cardOverHandle = useCallback(
+  const handleCardOver = useCallback(
       (id) => {
         timer = setTimeout(() => setActiveCard(id), TRAILER_START_TIME);
       }, [timer]
   );
 
-  const cardOutHandle = useCallback(
+  const handleCardOut = useCallback(
       () => {
         clearTimeout(timer);
         setActiveCard(-1);
@@ -37,8 +33,8 @@ const MovieList = (props) => {
     <div className="catalog__movies-list">
       {films.map((film, i) => (
         <MemoMovieCard key ={`${i}-${film.id}`} film={film}
-          onMovieCardOver ={() => cardOverHandle(film.id)}
-          onMovieCardOut={cardOutHandle}
+          onMovieCardOver ={() => handleCardOver(film.id)}
+          onMovieCardOut={handleCardOut}
           isVideoPlaying ={activeCard === film.id} />
       ))}
     </div>

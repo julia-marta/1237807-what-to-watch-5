@@ -5,12 +5,10 @@ import {TABS, Tab} from "../../const";
 const {OVERVIEW} = Tab;
 
 const Tabs = (props) => {
-
   const {renderTab} = props;
-
   const [activeTab, setActiveTab] = useState(OVERVIEW);
 
-  const tabClickHandle = useCallback(
+  const handleTabClick = useCallback(
       (evt) => {
         evt.preventDefault();
         setActiveTab(evt.target.textContent);
@@ -23,7 +21,7 @@ const Tabs = (props) => {
         <ul className="movie-nav__list">
           {TABS.map((tab, i) =>
             <li key={i + tab} className={`movie-nav__item ${tab === activeTab ? `movie-nav__item--active` : ``}`}>
-              <a href="#" className="movie-nav__link" onClick={tabClickHandle}>{tab}</a>
+              <a href="#" className="movie-nav__link" onClick={handleTabClick}>{tab}</a>
             </li>
           )}
         </ul>
