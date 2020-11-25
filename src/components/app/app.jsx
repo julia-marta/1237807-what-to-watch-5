@@ -15,7 +15,7 @@ const {ROOT, LOGIN, MY_LIST, FILMS, REVIEW, PLAYER} = AppRoute;
 const App = () => {
 
   return (
-    <BrowserRouter history={browserHistory}>
+    <BrowserRouter basename={ROOT} history={browserHistory}>
       <Switch>
         <Route exact path={ROOT} render={({history}) => (
           <Main onPlayClick={(id) => history.push(`${PLAYER}/${id}`)}/>

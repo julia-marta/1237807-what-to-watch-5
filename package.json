@@ -1,9 +1,12 @@
 {
+  "homepage": "https://julia-marta.github.io/1237807-what-to-watch-5",
   "name": "what-to-watch",
   "version": "1.0.0",
   "private": true,
   "description": "Личный проект «Что посмотреть» от HTML Academy",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d public",
     "build": "webpack --mode production",
     "start": "webpack-dev-server",
     "eslint": "eslint --ext .jsx --ext .js src/",
@@ -21,6 +24,7 @@
     "eslint": "5.13.0",
     "eslint-config-htmlacademy": "0.5.2",
     "eslint-plugin-react": "7.18.3",
+    "gh-pages": "3.1.0",
     "jest": "25.1.0",
     "moment-duration-format": "2.3.2",
     "react-test-renderer": "16.12.0",
